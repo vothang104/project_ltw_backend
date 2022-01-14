@@ -13,20 +13,21 @@
 		<div class="login-board">
 			<div class="row">
 				<div class="col l-8 m-12 c-12 min-12">
-					<form action="" class="login-board__form">
+					<form action="${pageContext.request.contextPath}/login" class="login-board__form" method="post">
+						<c:if test="${message ne null }">
+						<p class='message-error'>${message}</p>
+						</c:if>
 						<h2 class="login-board__form-title">Đăng nhập tài khoản</h2>
 						<div class="form-group">
-							<input placeholder=" " id="email" type="email"
-								class="login-board__form-input"> <span
-								class="login-board__form-input__placeholder">Email</span> <i
-								class="form-message"></i>
+							<input autocomplete="off" name='username' placeholder=" " id="username" type="text" class="login-board__form-input">
+							<span class="login-board__form-input__placeholder">Tên đăng nhập</span>
+							<i class="form-message"></i>
 						</div>
 						<div class="form-group">
-							<input placeholder=" " id="password" type="password"
-								class="login-board__form-input"> <i
-								class="login-board__icon-view far fa-eye-slash"></i> <span
-								class="login-board__form-input__placeholder">Mật khẩu</span> <i
-								class="form-message"></i>
+							<input name='password' placeholder=" " id="password" type="password" class="login-board__form-input">
+							<i class="login-board__icon-view far fa-eye-slash"></i>
+							<span class="login-board__form-input__placeholder">Mật khẩu</span>
+							<i class="form-message"></i>
 						</div>
 						<input type="submit" class="login-board__form-btn"
 							value="ĐĂNG NHẬP">
@@ -56,7 +57,7 @@
 						<span>Vận chuyển siêu tốc</span> <span>Sản phẩm đa dạng</span> <span>Đổi
 							trả dễ dàng</span> <span>Tích điểm đổi quà</span> <span>Được giảm
 							giá cho lần mua tiếp theo lên đến 10%</span> 
-							<a href="<c:url value='/views/web/signup.jsp' />" class="login-board__desc-btn">Đăng ký</a>
+							<a href="${pageContext.request.contextPath}/signup" class="login-board__desc-btn">Đăng ký</a>
 					</div>
 				</div>
 			</div>
@@ -71,8 +72,7 @@
 		form : '.login-board__form',
 		formGroupSelector : '.form-group',
 		errorSelector : '.form-message',
-		rules : [ Validator.isRequired('#email', 'Vui lòng nhập trường này'),
-				Validator.isEmail('#email', 'Email không hợp lệ'),
+		rules : [ Validator.isRequired('#username', 'Vui lòng nhập trường này'),
 				Validator.isRequired('#password', 'Vui lòng nhập trường này'),
 				Validator.minlength('#password', 6) ]
 	})

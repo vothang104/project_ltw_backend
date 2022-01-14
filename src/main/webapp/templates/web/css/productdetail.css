@@ -116,8 +116,10 @@
     padding: 5px 0;
 }
 .detailproduct-right__name {
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: var(--gray-dark);
+    text-transform: capitalize;
+    margin-right: 10px;
 }
 .detailproduct-right__like {
     font-size: 2.5rem;

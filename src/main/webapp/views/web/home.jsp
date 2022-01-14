@@ -92,69 +92,82 @@
 	<!-- sản phẩm mới -->
 	<div class="new-product">
 		<div class="grid wide">
-			<a href="<c:url value ='/views/web/newproduct.jsp' />" class="new-product__title">mẫu mới về</a>
+			<a href="${pageContext.request.contextPath}/allproduct?type=new" class="new-product__title">mẫu mới về</a>
 			<div class="row">
+				<c:forEach items="${listTop4NewProduct}" var="p">
 				<div class="col l-3 m-6 c-6 min-6">
-					<div class="product product--sale">
+					<div class="product <c:if test="${p.salePercent ne 0}">product--sale</c:if>">
 						<div class="product-sale">
 							<div style='--rotate: 2' class="product-sale__item"></div>
 							<div style='--rotate: 1' class="product-sale__item"></div>
 							<div style='--rotate: 0' class="product-sale__item">
-								<span>Giảm</span> <span>10%</span>
+								<span>Giảm</span> <span>${p.salePercent}%</span>
 							</div>
 						</div>
 						<div class="view-more">
-							<a href="<c:url value ='/views/web/newproduct.jsp' />" class="view-more__link">Xem thêm
+							<a href="${pageContext.request.contextPath}/allproduct?type=new" class="view-more__link">Xem thêm
 								<i class="fas fa-arrow-right"></i>
 							</a>
 						</div>
-						<a href="${pageContext.request.contextPath}/views/web/productdetail.jsp" class="product__img"
-							style='background-image: url(https://bizweb.dktcdn.net/thumb/large/100/434/926/products/polo-cam-2.jpg?v=1628955290000)'>
-							<form data-id='1' action="" method="get"
-								class="hide-on-taplet product__size">
-								<div class="product__color">
-									<input class="product__color-option" hidden type="radio"
-										name="color" id="yellow"> <label for="yellow"
-										class="product__color-label"> <img
-										src="https://bizweb.dktcdn.net/thumb/large/100/434/926/products/pc-ao-dam-2019-large-1605601954-6629.jpg?v=1629002946000"
-										alt="" class="product__color-img">
-									</label> <input class="product__color-option" hidden type="radio"
-										name="color" id="red"> <label for="red"
-										class="product__color-label"> <img
-										src="https://bizweb.dktcdn.net/thumb/large/100/434/926/products/pc-ao-dam-2019-large-1605601954-6629.jpg?v=1629002946000"
-										alt="" class="product__color-img">
-									</label>
-								</div>
+						<c:forEach items="${listImage}" var="image">
+						<c:if test="${image.productId eq p.id}">
+						<c:choose>
+						<c:when test="${image.isLinkOnline eq true}">
+						<a href="${pageContext.request.contextPath}/productdetail?id=${p.id}" class="product__img"
+							style='background-image: url(${image.link})'>
+						</c:when>
+						<c:otherwise>
+						<a href="${pageContext.request.contextPath}/productdetail?id=${p.id}" class="product__img"
+							style='background-image: url(upload/${image.link})'>
+						</c:otherwise>
+						</c:choose>						
+						</c:if>
+						</c:forEach>
+							<form data-id='${p.id}' action="" method="post" class="hide-on-taplet product__size">
 								<div class="product__size-wrap">
-									<input class="product__size-option" hidden type="radio"
-										name="size" id="s"> <label for="s"
-										class="product__size-label">S</label> <input
-										class="product__size-option" hidden type="radio" name="size"
-										id="m"> <label for="m" class="product__size-label">M</label>
-									<input class="product__size-option" hidden type="radio"
-										name="size" id="l"> <label for="l"
-										class="product__size-label">L</label>
+									<input class="product__size-option" hidden type="radio" name="size${p.id}" id="s${p.id}">
+									<label for="s${p.id}" class="product__size-label">S</label>
+									<input class="product__size-option" hidden type="radio" name="size${p.id}" id="m${p.id}">
+									<label for="m${p.id}" class="product__size-label">M</label>
+									<input class="product__size-option" hidden type="radio" name="size${p.id}" id="l${p.id}">
+									<label for="l${p.id}" class="product__size-label">L</label>
+									<input type='text' hidden value='${p.id}' name='id' />
 								</div>
 							</form>
-						</a>
+						</a>					
 						<div class="product__info">
-							<p class="product__brand">ego wear</p>
-							<p data-id='sp' class="product__name">Áo polo phối khóa cổ</p>
+							<p class="product__brand">${p.branch}</p>
+							<p data-id='${p.id}' class="product__name">${p.name}</p>
 
 							<div class="product__action">
 								<div class="product__action-wrap">
 									<div class="product__price">
-										<span class="product__price-sell">399000 đ</span> <span
-											class="product__price-sale">460000 đ</span>
+										<c:choose>
+										<c:when test="${p.salePercent ne 0}">
+										<span class="product__price-sell">${p.priceSaleFormat} đ</span>
+										</c:when>
+										<c:otherwise>
+										<span class="product__price-sell">${p.priceFormat} đ</span>
+										</c:otherwise>
+										</c:choose>
+										
+										<c:choose>
+										<c:when test="${p.salePercent ne 0}">
+										<span class="product__price-sale">${p.priceFormat} đ</span>
+										</c:when>
+										<c:otherwise>
+										<span class="product__price-sale"></span>
+										</c:otherwise>
+										</c:choose>
 									</div>
 									<div class="product__action-option">
-										<button data-id='sp' class="btn-action prouct__action-like">
+										<button onclick="handleLike.bind(this)()" data-id='${p.id}' class="btn-action prouct__action-like">
 											<i class="far fa-heart"></i>
 										</button>
-										<button data-id='sp' class="btn-action product__action-cart">
+										<button onclick="handleCart.bind(this)()" data-id='${p.id}' class="btn-action product__action-cart">
 											<i class="fas fa-shopping-basket"></i>
 										</button>
-										<button data-id='1' class="btn-action product__action-buy">
+										<button data-id='${p.id}' class="btn-action product__action-buy">
 											<i class="fas fa-shopping-basket"></i> Mua ngay
 										</button>
 									</div>
@@ -163,213 +176,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col l-3 m-6 c-6 min-6">
-					<div class="product product--sale">
-						<div class="product-sale">
-							<div style='---rotate: 2' class="product-sale__item"></div>
-							<div style='---rotate: 1' class="product-sale__item"></div>
-							<div style='---rotate: 0' class="product-sale__item">
-								<span>Giảm</span> <span>10%</span>
-							</div>
-						</div>
-						<div class="view-more">
-							<a href="./newproduct.html" class="view-more__link">Xem thêm
-								<i class="fas fa-arrow-right"></i>
-							</a>
-						</div>
-						<a href="./productdetail.html" class="product__img"
-							style='background-image: url(https://bizweb.dktcdn.net/thumb/large/100/434/926/products/phong-vang-2.jpg?v=1628955779000)'>
-							<form data-id='1' action="" method="get"
-								class="hide-on-taplet product__size">
-								<div class="product__color">
-									<input class="product__color-option" hidden type="radio"
-										name="color" id="yellow"> <label for="yellow"
-										class="product__color-label"> <img
-										src="https://bizweb.dktcdn.net/thumb/large/100/434/926/products/pc-ao-dam-2019-large-1605601954-6629.jpg?v=1629002946000"
-										alt="" class="product__color-img">
-									</label> <input class="product__color-option" hidden type="radio"
-										name="color" id="red"> <label for="red"
-										class="product__color-label"> <img
-										src="https://bizweb.dktcdn.net/thumb/large/100/434/926/products/pc-ao-dam-2019-large-1605601954-6629.jpg?v=1629002946000"
-										alt="" class="product__color-img">
-									</label>
-								</div>
-								<div class="product__size-wrap">
-									<input class="product__size-option" hidden type="radio"
-										name="size" id="s"> <label for="s"
-										class="product__size-label">S</label> <input
-										class="product__size-option" hidden type="radio" name="size"
-										id="m"> <label for="m" class="product__size-label">M</label>
-									<input class="product__size-option" hidden type="radio"
-										name="size" id="l"> <label for="l"
-										class="product__size-label">L</label>
-								</div>
-							</form>
-						</a>
-						<div class="product__info">
-							<p class="product__brand">ego wear</p>
-							<p data-id='sp' class="product__name">Áo polo phối khóa cổ</p>
-
-							<div class="product__action">
-								<div class="product__action-wrap">
-									<div class="product__price">
-										<span class="product__price-sell">399000 đ</span> <span
-											class="product__price-sale">460000 đ</span>
-									</div>
-									<div class="product__action-option">
-										<button data-id='sp' class="btn-action prouct__action-like">
-											<i class="far fa-heart"></i>
-										</button>
-										<button data-id='sp' class="btn-action product__action-cart">
-											<i class="fas fa-shopping-basket"></i>
-										</button>
-										<button data-id='1' class="btn-action product__action-buy">
-											<i class="fas fa-shopping-basket"></i> Mua ngay
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col l-3 m-6 c-6 min-6">
-					<div class="product product--sale">
-						<div class="product-sale">
-							<div style='---rotate: 2' class="product-sale__item"></div>
-							<div style='---rotate: 1' class="product-sale__item"></div>
-							<div style='---rotate: 0' class="product-sale__item">
-								<span>Giảm</span> <span>10%</span>
-							</div>
-						</div>
-						<div class="view-more">
-							<a href="./newproduct.html" class="view-more__link">Xem thêm
-								<i class="fas fa-arrow-right"></i>
-							</a>
-						</div>
-						<a href="./productdetail.html" class="product__img"
-							style='background-image: url(https://bizweb.dktcdn.net/thumb/large/100/434/926/products/pt04116tr-9.jpg?v=1629001480000)'>
-							<form data-id='1' action="" method="get"
-								class="hide-on-taplet product__size">
-								<div class="product__color">
-									<input class="product__color-option" hidden type="radio"
-										name="color" id="yellow"> <label for="yellow"
-										class="product__color-label"> <img
-										src="https://bizweb.dktcdn.net/thumb/large/100/434/926/products/pc-ao-dam-2019-large-1605601954-6629.jpg?v=1629002946000"
-										alt="" class="product__color-img">
-									</label> <input class="product__color-option" hidden type="radio"
-										name="color" id="red"> <label for="red"
-										class="product__color-label"> <img
-										src="https://bizweb.dktcdn.net/thumb/large/100/434/926/products/pc-ao-dam-2019-large-1605601954-6629.jpg?v=1629002946000"
-										alt="" class="product__color-img">
-									</label>
-								</div>
-								<div class="product__size-wrap">
-									<input class="product__size-option" hidden type="radio"
-										name="size" id="s"> <label for="s"
-										class="product__size-label">S</label> <input
-										class="product__size-option" hidden type="radio" name="size"
-										id="m"> <label for="m" class="product__size-label">M</label>
-									<input class="product__size-option" hidden type="radio"
-										name="size" id="l"> <label for="l"
-										class="product__size-label">L</label>
-								</div>
-							</form>
-						</a>
-						<div class="product__info">
-							<p class="product__brand">ego wear</p>
-							<p data-id='sp' class="product__name">Áo polo phối khóa cổ</p>
-
-							<div class="product__action">
-								<div class="product__action-wrap">
-									<div class="product__price">
-										<span class="product__price-sell">399000 đ</span> <span
-											class="product__price-sale">460000 đ</span>
-									</div>
-									<div class="product__action-option">
-										<button data-id='sp' class="btn-action prouct__action-like">
-											<i class="far fa-heart"></i>
-										</button>
-										<button data-id='sp' class="btn-action product__action-cart">
-											<i class="fas fa-shopping-basket"></i>
-										</button>
-										<button data-id='1' class="btn-action product__action-buy">
-											<i class="fas fa-shopping-basket"></i> Mua ngay
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col l-3 m-6 c-6 min-6">
-					<div class="product product--sale">
-						<div class="product-sale">
-							<div style='---rotate: 2' class="product-sale__item"></div>
-							<div style='---rotate: 1' class="product-sale__item"></div>
-							<div style='---rotate: 0' class="product-sale__item">
-								<span>Giảm</span> <span>10%</span>
-							</div>
-						</div>
-						<div class="view-more">
-							<a href="./newproduct.html" class="view-more__link">Xem thêm
-								<i class="fas fa-arrow-right"></i>
-							</a>
-						</div>
-						<a href="./productdetail.html" class="product__img"
-							style='background-image: url(https://bizweb.dktcdn.net/thumb/large/100/434/926/products/lc03105ke-6.jpg?v=1628997037000)'>
-							<form data-id='1' action="" method="get"
-								class="hide-on-taplet product__size">
-								<div class="product__color">
-									<input class="product__color-option" hidden type="radio"
-										name="color" id="yellow"> <label for="yellow"
-										class="product__color-label"> <img
-										src="https://bizweb.dktcdn.net/thumb/large/100/434/926/products/pc-ao-dam-2019-large-1605601954-6629.jpg?v=1629002946000"
-										alt="" class="product__color-img">
-									</label> <input class="product__color-option" hidden type="radio"
-										name="color" id="red"> <label for="red"
-										class="product__color-label"> <img
-										src="https://bizweb.dktcdn.net/thumb/large/100/434/926/products/pc-ao-dam-2019-large-1605601954-6629.jpg?v=1629002946000"
-										alt="" class="product__color-img">
-									</label>
-								</div>
-								<div class="product__size-wrap">
-									<input class="product__size-option" hidden type="radio"
-										name="size" id="s"> <label for="s"
-										class="product__size-label">S</label> <input
-										class="product__size-option" hidden type="radio" name="size"
-										id="m"> <label for="m" class="product__size-label">M</label>
-									<input class="product__size-option" hidden type="radio"
-										name="size" id="l"> <label for="l"
-										class="product__size-label">L</label>
-								</div>
-							</form>
-						</a>
-						<div class="product__info">
-							<p class="product__brand">ego wear</p>
-							<p data-id='sp' class="product__name">Áo polo phối khóa cổ</p>
-
-							<div class="product__action">
-								<div class="product__action-wrap">
-									<div class="product__price">
-										<span class="product__price-sell">399000 đ</span> <span
-											class="product__price-sale">460000 đ</span>
-									</div>
-									<div class="product__action-option">
-										<button data-id='sp' class="btn-action prouct__action-like">
-											<i class="far fa-heart"></i>
-										</button>
-										<button data-id='sp' class="btn-action product__action-cart">
-											<i class="fas fa-shopping-basket"></i>
-										</button>
-										<button data-id='1' class="btn-action product__action-buy">
-											<i class="fas fa-shopping-basket"></i> Mua ngay
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

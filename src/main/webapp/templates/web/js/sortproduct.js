@@ -3,6 +3,26 @@ const sortList = document.querySelector('.sort-product__list');
 const sortItems = document.querySelectorAll('.sort-product__item');
 const sortMove = document.querySelector('.sort-product__list-move');
 const underline = document.querySelector('.underline');
+function handleSort(pageConfig, sort, { brand, price, material }) {
+    const page = pageConfig.currentPage;
+    const type = pageConfig.type;
+    let categoryId;
+    if (pageConfig.categoryId) {
+        categoryId = pageConfig.categoryId;
+    }
+    pageConfig.sort = sort;
+    localStorage.setItem('pageConfig', JSON.stringify(pageConfig));
+
+
+    fetch(`/ProjectWeb/api-allproduct?type=${type}${categoryId ? `&id=${categoryId}` : ''}&page=${page}&sort=${sort}&brand=${brand.join('-')}&material=${material.join('-')}&price=${price}`)
+        .then(resp => {
+            return resp.text();
+        })
+        .then(data => {
+            document.querySelector('.list-product-js').innerHTML = data;
+        })
+        .catch(err => console.log(err));
+}
 
 [...sortItems].forEach(sortItem => {
     sortItem.onclick = e => {
@@ -14,6 +34,8 @@ const underline = document.querySelector('.underline');
         const distance2 = elementBounding.left;
         underline.style = 'display: none';
         sortMove.style = `width: ${elementBounding.width}px;
-                            transform: translate(${distance2 - distance1}px, 1px);`;
+                            transform: translate(${distance2 - distance1}px, 1px);`
+        // xử lí sắp xếp
+        handleSort(JSON.parse(localStorage.getItem('pageConfig')), e.target.dataset.sort, JSON.parse(localStorage.getItem('filter')));
     }
 })

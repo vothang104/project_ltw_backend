@@ -13,7 +13,4 @@
     <decorator name="seller" page="seller.jsp">
         <pattern>/seller*</pattern>
     </decorator>
-    <decorator name="login" page="login.jsp">
-        <pattern>/login</pattern>
-    </decorator>
 </decorators>

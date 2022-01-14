@@ -19,6 +19,11 @@
     margin-left: 10px;
     color: var(--orange);
 }
+.message-error {
+	font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--danger);
+}
 /************************************* login content */
 /* form */
 .login__content {

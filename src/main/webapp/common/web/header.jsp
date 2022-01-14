@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="/common/taglibs.jsp" %>
 <header class="header">
             <div class="grid wide">
                 <div class="row header-up">
@@ -18,7 +19,7 @@
                                 <ul class="menu-mobile__board">
                                     <li class="menu-mobile__item">
                                         <i class="menu-mobile__item-iconuser fas fa-user"></i>
-                                        <a href="./login.html" class="menu-mobile__item-nameuser">Đăng nhập</a>
+                                        <a href="${pageContext.request.contextPath}/login" class="menu-mobile__item-nameuser">Đăng nhập</a>
                                         <div class="menu-mobile__item-close">
                                             <label for="check-menu">
                                                 <i class="fas fa-times"></i>
@@ -39,7 +40,7 @@
                                     </li>
                                     <li class="menu-mobile__item">
                                         <i class="fas fa-newspaper"></i>
-                                        <a href="./news.html">Tin tức</a>
+                                       <a href="./news.html">Tin tức</a>
                                     </li>
                                     <li class="menu-mobile__item">
                                         <i class="fas fa-file-signature"></i>
@@ -72,16 +73,22 @@
                         <div class="header-up__options">
                             <div class="header-up__options-login hide-on-mobile">
                                 <i class="fas fa-user"></i>
-                                <a href="<c:url value='/views/web/login.jsp' />">Đăng nhập</a>
-                                <!-- <a href="">vothang</a>
+                                <c:choose>
+                                <c:when test="${sessionScope.user eq null}">
+                                <a href="${pageContext.request.contextPath}/login">Đăng nhập</a>
+                                </c:when>
+                                <c:otherwise>
+                                <a>${sessionScope.user.username}</a>
                                 <ul class="header-up__options-login__list">
                                     <li class="header-up__options-login__item">
                                         <a class="header-up__options-login__link" href="">Tài khoản của tôi</a>
                                     </li>
                                     <li class="header-up__options-login__item">
-                                        <a class="header-up__options-login__link" href="">Đăng xuất</a>
+                                        <a href='${pageContext.request.contextPath}/home?action=logout' class="header-up__options-login__link" href="">Đăng xuất</a>
                                     </li>
-                                </ul> -->
+                                </ul>
+                                </c:otherwise>
+                                </c:choose>                                                          
                             </div>
                             <div class="header-up__options-enjoy">
                                 <i class="fas fa-heart"></i>
@@ -108,58 +115,19 @@
                             <a class="header-down__link">Sản phẩm</a>
                             <i class="header-down__icon fas fa-caret-down"></i>
                             <ul class="header-down__list-product">
+                            <c:forEach items="${listCategory}" var="cate">
                                 <li class="header-down__product">
-                                    Áo nam <i class="header-down__product-icon fas fa-caret-right"></i>
+                                   ${cate.name } <i class="header-down__product-icon fas fa-caret-right"></i>
                                     <ul class="header-down__product-list">
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Sơ mi nam</a>
+                                    <c:forEach items="${listSubCategory}" var="subCate">
+                                    <c:if test="${subCate.categoryId eq cate.id}">
+                                        <li class="header-down__product-item"><a href="${pageContext.request.contextPath}/allproduct?type=category&id=${subCate.id}">${subCate.name}</a>
                                         </li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Áo thun
-                                                nam</a></li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Polo nam</a>
-                                        </li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Áo khoác
-                                                nam</a></li>
+                                    </c:if>
+                                    </c:forEach>                               
                                     </ul>
                                 </li>
-                                <li class="header-down__product">
-                                    Áo nữ <i class="header-down__product-icon fas fa-caret-right"></i>
-                                    <ul class="header-down__product-list">
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Sơ mi nữ</a>
-                                        </li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Áo thun nữ</a>
-                                        </li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Polo nữ</a>
-                                        </li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Áo khoác
-                                                nữ</a></li>
-                                    </ul>
-                                </li>
-                                <li class="header-down__product">
-                                    Quần nam <i class="header-down__product-icon fas fa-caret-right"></i>
-                                    <ul class="header-down__product-list">
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Quần jean
-                                                nam</a> </li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Quần kaki
-                                                nam</a></li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Quân jogger
-                                                nam</a></li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Quần short
-                                                nam</a></li>
-                                    </ul>
-                                </li>
-                                <li class="header-down__product">
-                                    Quần nữ <i class="header-down__product-icon fas fa-caret-right"></i>
-                                    <ul class="header-down__product-list">
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Quần jean
-                                                nữ</a> </li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Quần kaki
-                                                nữ</a></li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Quân xuông
-                                                nữ</a></li>
-                                        <li class="header-down__product-item"><a href="./newproduct.html">Quần short
-                                                nữ</a></li>
-                                    </ul>
-                                </li>
+                            </c:forEach>    
                             </ul>
                         </div>
                         <div class="col header-down__wrap-link">

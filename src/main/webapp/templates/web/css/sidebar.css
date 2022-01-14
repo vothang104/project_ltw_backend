@@ -102,6 +102,7 @@
     color: var(--white);
     padding: 5px 0;
 }
+
 /**** brand ********/
 .sidebar__filter-brand {
     margin-bottom: 24px;
@@ -114,11 +115,47 @@
     color: var(--gray-dark);
     font-weight: 550;
 }
-.sidebar__filter-brand__choose {
+.sidebar__filter__choose {
+    padding: 10px 0;
     display: flex;
     align-items: center;
-    padding: 10px 0;
 }
+
+.sidebar__filter-toggle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 40px;
+    height: 20px;
+    background-color: #ccc;
+    margin-right: 10px;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all linear 0.2s;
+}
+.sidebar__filter-toggle::before {
+    content: '';
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50px;
+    background-color: var(--white);
+    transition: all 0.2s ease-in;
+    pointer-events: none;
+}
+.sidebar__filter-input:checked + .sidebar__filter-toggle  {
+    background-color: var(--orange);
+}
+.sidebar__filter-input:checked + .sidebar__filter-toggle::before  {
+    left: calc(100% - 18px);
+}
+.sidebar__filter-toggle-label {
+    font-size: 1.4rem;
+    color: var(--gray-dark)
+}
+
 /********** price ***********/
 .sidebar__filter-price {
     margin-bottom: 24px;
@@ -131,11 +168,7 @@
     color: var(--gray-dark);
     font-weight: 550;
 }
-.sidebar__filter-price__choose {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-}
+
 /************ material *********/
 .sidebar__filter-material {
     margin-bottom: 24px;
@@ -147,38 +180,4 @@
     font-size: 1.6rem;
     color: var(--gray-dark);
     font-weight: 550;
-}
-.sidebar__filter-material__choose {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-}
-/*************************** toggle ********************/
-.toggle {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 40px;
-    height: 20px;
-    background-color: #ccc;
-    margin-right: 10px;
-    border-radius: 40px;
-}
-.toggle:hover {
-    cursor: pointer;
-}
-.toggle__btn {
-    position: absolute;
-    z-index: 2;
-    left: 0;
-    width: 18px;
-    height: 18px;
-    border-radius: 50px;
-    background-color: var(--white);
-    transition: all 0.2s ease-in;
-    pointer-events: none;
-}
-.toggle-label {
-    font-size: 1.4rem;
-    color: var(--gray-dark);
 }

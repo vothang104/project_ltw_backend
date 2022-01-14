@@ -7,36 +7,30 @@
 <div class="toast-wrap"> </div>
 <div class="grid wide">
 	<div class="container-detail__direct">
-		<a href="./index.html">Trang chủ</a> <span>/</span> <a
-			href="./newproduct.html">Sản phẩm mới</a> <span>/</span> <span>Áo
-			polo phối khóa cổ</span>
+		<a href="${pageContext.request.contextPath}/">Trang chủ</a> <span>/</span>
+		<a style="cursor: pointer" onclick="history.back()">Sản phẩm</a> <span>/</span> <span>${product.name}</span>
 	</div>
 	<div class="detailproduct">
 		<div class="row">
 			<div class="col l-7 m-12 c-12 min-12">
 				<div class="detailproduct-left">
-
 					<div class="detailproduct-left__slide-wrap">
 						<div class="detailproduct-left__slide-choose">
-							<img data-distance='0'
-								class="detailproduct-left__slide-choose__img active"
-								src="https://bizweb.dktcdn.net/100/434/926/products/polo-xanh-1.jpg?v=1628955293840"
-								alt=""> <img data-distance='1'
-								class="detailproduct-left__slide-choose__img"
-								src="https://bizweb.dktcdn.net/100/434/926/products/polo-xanh-2.jpg?v=1628955294230"
+							<c:forEach items="${listImage}" var="image" varStatus="loopCount">
+							<img data-distance='${loopCount.count - 1}'
+								class="detailproduct-left__slide-choose__img <c:if test="${loopCount.count eq 1}">active</c:if>"
+								src="${image.link}"
 								alt="">
+							</c:forEach>
 						</div>
 						<div class="detailproduct-left__slide">
+							<c:forEach items="${listImage}" var="image">
 							<div class="detailproduct-left__slide-img">
 								<img class="detailproduct-left__slide-img"
-									src="https://bizweb.dktcdn.net/100/434/926/products/polo-xanh-1.jpg?v=1628955293840"
+									src="${image.link}"
 									alt="">
 							</div>
-							<div class="detailproduct-left__slide-img">
-								<img class="detailproduct-left__slide-img"
-									src="https://bizweb.dktcdn.net/100/434/926/products/polo-xanh-2.jpg?v=1628955294230"
-									alt="">
-							</div>
+							</c:forEach>			
 						</div>
 					</div>
 
@@ -48,17 +42,17 @@
 								mua hàng</button>
 						</div>
 						<p data-id='paragraph1' class="detailproduct-left___help-content">
-							Chính thức cho ra mắt dòng sản phẩm áo POLO mới với thiêt kế vô
+							Chính thức cho ra mắt dòng sản phẩm ${product.name} mới với thiêt kế vô
 							cùng trẻ trung, khỏe khoắn cùng nhiều ưu điểm hấp dẫn. Thiết kế
 							tinh tế với phần cổ và tay áo được phối viền màu, kết hợp với
 							phần khoá đồng được nhấn nhá thêm ở phần cổ tạo hiệu ứng cho
-							chiếc áo thêm phần nổi bật. Áo được làm từ chất liệu cotton lạnh
+							chiếc áo thêm phần nổi bật. Áo được làm từ chất liệu ${product.material}
 							co giãn 04 chiều mang lại cảm giác thoải mái và dễ chịu tối đa
 							cho người mặc. Dòng sản phẩm này tới 06 phiên bản màu sắc; từ đơn
 							giản, nhẹ nhàng đến nổi bật, cá tính; phù hợp với hầu hết nhu cầu
 							sử dụng từ công sở, đội nhóm, đi chơi,… <br> <br> - Màu
-							sắc: Trắng <br> - Chất liệu: Cotton Lạnh <br> - Thành
-							phần: 95% cotton + 5% spandex (Cotton cao cấp co giãn 4 chiều) <br>
+							sắc: Trắng <br> - Chất liệu: ${product.material} <br> - Thành
+							phần: 95% ${product.material} + 5% spandex (${product.material} cao cấp co giãn 4 chiều) <br>
 							- Xuất xứ: Made in Viet Nam <br>
 						</p>
 						<p data-id='paragraph2' class="detailproduct-left___help-content">
@@ -91,37 +85,37 @@
 			<div class="col l-5 m-12 c-12 min-12">
 				<div class="detailproduct-right">
 					<div class="detailproduct-right__name-wrap">
-						<h3 class="detailproduct-right__name">Áo polo phối khóa cổ</h3>
+						<h3 class="detailproduct-right__name">${product.name}</h3>
 						<i class="detailproduct-right__like far fa-heart"></i>
 					</div>
 					<div class="detailproduct-right__brand-wrap">
-						<span>Thương hiệu:</span> <span class="detailproduct-right__brand">Ego
-							Wear</span>
+						<span>Thương hiệu:</span> <span class="detailproduct-right__brand">${product.branch}</span>
 					</div>
 					<div class="detailproduct-right__price-wrap">
-						<span class="detailproduct-right__price-sell">399.000</span> <span
-							class="detailproduct-right__price-sale-wrap"> Giá gốc: <span
-							class="detailproduct-right__price-sale">460.000</span>
+						<span class="detailproduct-right__price-sell">${product.priceSaleFormat}</span>
+						<c:if test="${product.salePercent ne 0}">
+						<span class="detailproduct-right__price-sale-wrap">
+						Giá gốc: <span class="detailproduct-right__price-sale">${product.priceFormat}</span>
 						</span>
+						</c:if>
 					</div>
 					<form action="" class="detailproduct-right__form">
 						<p class="detailproduct-right__form-size-wrap">
-							kích thước: <span class="detailproduct-right__form-size">X</span>
+							kích thước: <span class="detailproduct-right__form-size">S</span>
 						</p>
 						<div class="detailproduct-right__size-wrap">
-							<input checked class='input-size' id="X" hidden type="radio"
-								name='size'> <label for="X"
-								class="detailproduct-right__size-label">X</label> <input
-								class='input-size' id="L" hidden type="radio" name='size'>
+							<input checked class='input-size' id="S" hidden type="radio"name='size'>
+							<label for="S" class="detailproduct-right__size-label">S</label>
+							<input class='input-size' id="M" hidden type="radio" name='size'>
+							<label for="M" class="detailproduct-right__size-label">M</label>
+							<input class='input-size' id="L" hidden type="radio" name='size'>
 							<label for="L" class="detailproduct-right__size-label">L</label>
-							<input class='input-size' id="XL" hidden type="radio" name='size'>
-							<label for="XL" class="detailproduct-right__size-label">XL</label>
 						</div>
 						<div class="detailproduct-right__number-wrap">
 							<button type="button" class="btn-number">
 								<i class="fas fa-minus"></i>
 							</button>
-							<input value="" id="input-number" type="text" hidden>
+							<input value="1" name='number' id="input-number" type="text" hidden>
 							<p class="input-number">1</p>
 							<button type="button" class="btn-number">
 								<i class="fas fa-plus"></i>
@@ -129,7 +123,8 @@
 						</div>
 						<div class="detailproduct-right__btn-action-wrap">
 							<button type="button" class="btn btn-cart">THÊM VÀO GIỎ</button>
-							<button type="button" class="btn btn-buy">MUA NGAY</button>
+							<button type="submit" class="btn btn-buy">MUA NGAY</button>
+							<input type='text' name='id' hidden value='${product.id}' />
 						</div>
 					</form>
 					<p class="detailproduct-right__hint-size">

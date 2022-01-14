@@ -14,42 +14,47 @@
 		<div class="signup-board">
 			<div class="row">
 				<div class="col l-8 m-12 c-12 min-12">
-					<form action="" class="signup-board__form">
+					<form action="${pageContext.request.contextPath}/signup" method="post" class="signup-board__form">
+						<c:if test="${message ne null}">
+						<p class="message-error">${message}</p>
+						</c:if>					
 						<h2 class="signup-board__form-title">Đăng ký tài khoản</h2>
 						<div class="form-group">
-							<input placeholder=" " id="fullname" type="text"
+							<input autocomplete="off" placeholder=" " id="fullname" type="text" name='username'
 								class="signup-board__form-input"> <span
-								class="signup-board__form-input__placeholder">Tên</span> <i
+								class="signup-board__form-input__placeholder">Tên đăng nhập</span> <i
 								class="form-message"></i>
 						</div>
-						<div class="form-group">
-							<input placeholder=" " id="email" type="email"
-								class="signup-board__form-input"> <span
-								class="signup-board__form-input__placeholder">Email</span> <i
-								class="form-message"></i>
+						<div class="form-group">							
+							<input														
+							autocomplete="off" placeholder=" " id="email" type="email" name='email' class="signup-board__form-input">
+								<span class="signup-board__form-input__placeholder">Email</span>
+								<i class="form-message"></i>
 						</div>
 						<div class="form-group">
-							<input placeholder=" " id="phone_number" type="phone"
-								class="signup-board__form-input"> <span
-								class="signup-board__form-input__placeholder">Số điện
-								thoại</span> <i class="form-message"></i>
+							<input						
+							autocomplete="off" name='phonenumber' placeholder=" " id="phone_number" type="phone" class="signup-board__form-input">
+							<span
+								class="signup-board__form-input__placeholder">Số điện thoại</span>
+								<i class="form-message"></i>
 						</div>
 						<div class="form-group">
-							<input placeholder=" " id="password" type="password"
-								class="signup-board__form-input"> <i
-								class="signup-board__icon-view far fa-eye-slash"></i> <span
+							<input						
+							autocomplete="off" name='password' placeholder=" " id="password" type="password" class="signup-board__form-input">
+								<i class="signup-board__icon-view far fa-eye-slash"></i> <span
 								class="signup-board__form-input__placeholder">Mật khẩu</span> <i
 								class="form-message"></i>
 						</div>
 						<div class="form-group">
-							<input placeholder=" " id="password_confirm" type="password"
-								class="signup-board__form-input"> <i
-								class="signup-board__icon-view far fa-eye-slash"></i> <span
-								class="signup-board__form-input__placeholder">Nhập lại
-								mật khẩu</span> <i class="form-message"></i>
+							<input					
+							placeholder=" " id="password_confirm" type="password"
+								class="signup-board__form-input">
+								<i class="signup-board__icon-view far fa-eye-slash"></i>
+								<span class="signup-board__form-input__placeholder">Nhập lại mật khẩu</span>
+								<i class="form-message"></i>
 						</div>
-						<input type="submit" class="signup-board__form-btn"
-							value="Đăng ký">
+						<input hidden name='role' value='2' type='text' />
+						<input type="submit" class="signup-board__form-btn" value="Đăng ký">
 					</form>
 					<div class="signup-board__socials">
 						<div class="signup-board__socials-wrap">

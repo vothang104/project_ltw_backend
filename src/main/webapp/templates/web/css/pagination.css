@@ -15,9 +15,10 @@
     color: var(--gray-dark);
     border: 1px solid #ccc;
     border-radius: 4px;
+    cursor: pointer;
 }
-.pagination__item.pagination--active .pagination__link{
-    background-color: var(--orange);
+.pagination__link.active {
+	background-color: var(--orange);
     color: var(--white);
     border-color: var(--orange);
 }

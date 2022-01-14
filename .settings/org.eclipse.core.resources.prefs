@@ -1,0 +1,13 @@
+eclipse.preferences.version=1
+encoding//src/main/java/ego/wear/DAO/impl/ProductDAO.java=UTF-8
+encoding//src/main/java/ego/wear/DAO/impl/RoleDAO.java=UTF-8
+encoding//src/main/java/ego/wear/DAO/impl/SubCategoryDAO.java=UTF-8
+encoding//src/main/java/ego/wear/controller/AllProductAjaxController.java=UTF-8
+encoding//src/main/java/ego/wear/controller/LoginController.java=UTF-8
+encoding//src/main/java/ego/wear/controller/SignupController.java=UTF-8
+encoding//src/main/java/ego/wear/service/impl/CategoryService.java=UTF-8
+encoding//src/main/java/ego/wear/service/impl/ItemService.java=UTF-8
+encoding//src/main/java/ego/wear/service/impl/ProductService.java=UTF-8
+encoding//src/main/java/ego/wear/service/impl/SubCategoryService.java=UTF-8
+encoding//src/main/java/ego/wear/service/impl/UserService.java=UTF-8
+encoding//src/main/java/ego/wear/util/GenerateCode.java=UTF-8
