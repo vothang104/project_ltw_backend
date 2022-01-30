@@ -47,7 +47,6 @@
 .cart-product__none {
     text-align: center;
     padding-top: 5%;
-    display: none;
 }
 
 .cart-product__none-icon {
@@ -202,22 +201,20 @@ span.btn-remove-enjoyproduct {
     justify-content: space-between;
 }
 
-.cart-product__pay-total {
-    font-size: 1.5rem;
-    font-weight: 550;
-}
 
 .cart-product__pay-total {
-    display: inline-block;
     display: flex;
+    width: 13%;
+    font-size: 1.5rem;
     justify-content: center;
     align-items: center;
 }
 
 .cart-product__pay-total span {
+	display: block;
+	flex-grow: 1;
+	text-align: center;
     color: var(--red);
-    display: inline-block;
-    margin-left: 10px;
 }
 
 .cart-product__pay-btn-pay {

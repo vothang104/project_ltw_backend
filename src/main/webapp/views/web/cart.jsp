@@ -10,68 +10,66 @@
 	</div>
 	<h2 class="cart-title">GIỎ HÀNG CỦA BẠN</h2>
 	<div class="cart-product">
-		<div class="cart-product__none">
-			<i class="cart-product__none-icon fas fa-shopping-bag"></i>
-			<p class="cart-product__none-text">Không có sản phẩm nào trong
-				giỏ hàng của bạn</p>
-		</div>
-		<div class="cart-product__has">
+	<c:choose>
+	<c:when test="${sessionScope.cart ne null}">
+	<div class="cart-product__has">
 			<div class="cart-product__table-head">
 				<div class="cart-product__table-head__info">Thông tin sản phẩm</div>
 				<div class="cart-product__table-head__details">
 					<span>Đơn giá</span> <span>Số lượng</span> <span>Thành tiền</span>
 				</div>
 			</div>
-			<div data-id="1" class="cart-product__table-body">
+			<c:forEach items="${sessionScope.cart}" var="item">		
+			<div data-id="${item.value.id}" class="cart-product__table-body">
 				<div class="cart-product__table-info-product">
+					<c:forEach items="${listImage}" var="image">
+					<c:if test="${image.productId eq item.value.id}">
 					<div class="cart-product__table-info-product__img">
-						<img
-							src="https://tse2.mm.bing.net/th?id=OIP.vc5yadKye0v27xWU9lFExAHaKX&pid=Api&P=0&w=300&h=300"
-							alt="image product">
+					<c:choose>
+					<c:when test="${image.isLinkOnline eq true}">
+					<img src="${image.link}" alt="image product">	
+					</c:when>
+					<c:otherwise>
+					<img src="upload/${image.link}" alt="image product">	
+					</c:otherwise>
+					</c:choose>				
 					</div>
+					</c:if>
+					</c:forEach>
 					<div class="cart-product__table-info-product__info">
-						<span>Áo phông cộc tay</span> <span>S / vàng</span> <span
-							class="btn-remove-enjoyproduct" data-id="1">xóa</span>
+						<span>${item.value.name}</span> <span>kích thước:${item.value.size}</span>
+						<span onclick="handleDelete.bind(this)()" class="btn-remove-enjoyproduct" data-id="${item.value.id}">xóa</span>
 					</div>
 				</div>
 				<div class="cart-product__table-details-product">
-					<span data-id="1"
-						class="cart-product__table-details-product__price">360000</span>
+					<span data-id="${item.value.id}" class="cart-product__table-details-product__price">${item.value.priceFormat}đ</span>
 					<div class="cart-product__table-details-product__quantity">
-						<span data-id="1" class="minus">-</span> <span data-id="1"
-							class="number">1</span> <span data-id="1" class="plus">+</span>
+						<span onclick="handleMinus.bind(this)()" data-id="${item.value.id}" class="minus">-</span>
+						<span data-id="${item.value.id}" class="number">${item.value.quantity}</span>
+						<span onclick="handlePlus.bind(this)()" data-id="${item.value.id}" class="plus">+</span>
 					</div>
-					<span data-id="1"
-						class="cart-product__table-details-product__total">360000</span>
+					<span data-id="${item.value.id}" class="cart-product__table-details-product__total">${item.value.totalPriceFormat}đ</span>
 				</div>
 			</div>
-			<div data-id="2" class="cart-product__table-body">
-				<div class="cart-product__table-info-product">
-					<div class="cart-product__table-info-product__img">
-						<img
-							src="https://tse2.mm.bing.net/th?id=OIP.vc5yadKye0v27xWU9lFExAHaKX&pid=Api&P=0&w=300&h=300"
-							alt="image product">
-					</div>
-					<div class="cart-product__table-info-product__info">
-						<span>Áo phông cộc tay</span> <span>S / vàng</span> <span
-							class="btn-remove-enjoyproduct" data-id="2">xóa</span>
-					</div>
-				</div>
-				<div class="cart-product__table-details-product">
-					<span data-id="2"
-						class="cart-product__table-details-product__price">360000</span>
-					<div class="cart-product__table-details-product__quantity">
-						<span data-id="2" class="minus">-</span> <span data-id="2"
-							class="number">1</span> <span data-id="2" class="plus">+</span>
-					</div>
-					<span data-id="2"
-						class="cart-product__table-details-product__total">360000</span>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
-		<div class="cart-product__pay">
-			<span class="cart-product__pay-total">Tổng tiền: <span>720000</span></span>
-			<a href="${pageContext.request.contextPath}/views/web/pay.jsp" class="cart-product__pay-btn-pay">Thanh toán</a>
+	</c:when>
+	<c:otherwise>
+	<div class="cart-product__none">
+			<i class="cart-product__none-icon fas fa-shopping-bag"></i>
+			<p class="cart-product__none-text">Không có sản phẩm nào trong
+				giỏ hàng của bạn</p>
+	</div>
+	</c:otherwise>
+	</c:choose>
+	<c:if test="${sessionScope.cart ne null}">
+	<div class="cart-product__pay">
+		<span class="cart-product__pay-total">Tổng tiền:
+		<span class="js-total-pay">${total}</span>đ
+		</span>
+		<a href="${pageContext.request.contextPath}/pay" class="cart-product__pay-btn-pay">Thanh toán</a>
 		</div>
+	</c:if>
 	</div>
 </div>
+<script src="${pageContext.request.contextPath}/templates/web/js/addtocart.js"></script>

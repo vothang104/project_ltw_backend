@@ -52,10 +52,13 @@ public class AllProductController extends HttpServlet {
 		List<ProductModel> listProduct;
 		RequestSetAttributeUtil.setCategory(request);
 		List<ImageModel> listImage = ImageService.getInstance().findAllOneProduct();
+		Condition[] arrCondition;
 		
 		switch (type) {
 		case "new":
-			listProduct = ProductService.getInstance().findAll(new PageRequest(currentPage, itemPerPage, new Sorter("desc", "id"), null));
+			arrCondition = new Condition[1];
+			arrCondition[0] = new Condition("quantity", 0, ">");
+			listProduct = ProductService.getInstance().findAll(new PageRequest(currentPage, itemPerPage, new Sorter("desc", "id"), arrCondition));
 			numberPage = new NumberPage(itemPerPage, ProductService.getInstance().findAll(null).size()).getNumberPage();
 			request.setAttribute("listImage", listImage);
 			request.setAttribute("numberPage", numberPage);
@@ -63,9 +66,12 @@ public class AllProductController extends HttpServlet {
 			request.getRequestDispatcher("views/web/newproduct.jsp").forward(request, response);
 			break;
 		case "category":
+			arrCondition = new Condition[2];
+			arrCondition[0] = new Condition("sub_category_id", categoryId, "=");
+			arrCondition[1] = new Condition("quantity", 0, ">");
 			listProduct = ProductService.getInstance().findAll(new PageRequest(currentPage, itemPerPage,
-					new Sorter("desc", "id"), new Condition("sub_category_id", categoryId)));
-			numberPage = new NumberPage(itemPerPage, ProductService.getInstance().findAll(new PageRequest(null, null, new Sorter("desc", "id"), new Condition("sub_category_id", categoryId))).size()).getNumberPage();
+					new Sorter("desc", "id"), arrCondition));
+			numberPage = new NumberPage(itemPerPage, ProductService.getInstance().findAll(new PageRequest(null, null, new Sorter("desc", "id"), arrCondition)).size()).getNumberPage();
 			request.setAttribute("categoryId", categoryId);
 			request.setAttribute("listImage", listImage);
 			request.setAttribute("numberPage", numberPage);

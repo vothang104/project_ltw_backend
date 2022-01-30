@@ -99,18 +99,24 @@ public String getType() {
 	// phuong thuc chung
 	public List<ProductModel> getListResult() {
 		List<ProductModel> listProduct = new ArrayList<ProductModel>();
+		Condition[] arrCondition;
 // check type start
 		switch (getType()) {
 		// new start
 		case "new":
+			arrCondition = new Condition[1];
+			arrCondition[0] = new Condition("quantity", 0, ">");
 			listProduct = ProductService.getInstance().findAll(new PageRequest(getCurrentPage(), 
-					getItemPerPage(), new Sorter("desc", "id"), null));						
+					getItemPerPage(), new Sorter("desc", "id"), arrCondition));						
 			break;
 		// new end
 		// category start
 		case "category":
+			arrCondition = new Condition[2];
+			arrCondition[0] = new Condition("sub_category_id", getCategoryId(), "=");
+			arrCondition[1] = new Condition("quantity", 0, ">");
 			listProduct = ProductService.getInstance().findAll(new PageRequest(getCurrentPage(), 
-					getItemPerPage(), new Sorter("desc", "id"), new Condition("sub_category_id", getCategoryId())));
+					getItemPerPage(), new Sorter("desc", "id"), arrCondition));
 			break;
 		// category end
 		default:

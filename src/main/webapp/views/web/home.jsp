@@ -123,15 +123,16 @@
 						</c:choose>						
 						</c:if>
 						</c:forEach>
-							<form data-id='${p.id}' action="" method="post" class="hide-on-taplet product__size">
+							<form data-id='${p.id}' action="pay" method="post" class="hide-on-taplet product__size">
 								<div class="product__size-wrap">
-									<input class="product__size-option" hidden type="radio" name="size${p.id}" id="s${p.id}">
+									<input checked class="product__size-option" hidden type="radio" value='S' name="size${p.id}" id="s${p.id}">
 									<label for="s${p.id}" class="product__size-label">S</label>
-									<input class="product__size-option" hidden type="radio" name="size${p.id}" id="m${p.id}">
+									<input class="product__size-option" hidden type="radio" value='M' name="size${p.id}" id="m${p.id}">
 									<label for="m${p.id}" class="product__size-label">M</label>
-									<input class="product__size-option" hidden type="radio" name="size${p.id}" id="l${p.id}">
+									<input class="product__size-option" hidden type="radio" value='L' name="size${p.id}" id="l${p.id}">
 									<label for="l${p.id}" class="product__size-label">L</label>
 									<input type='text' hidden value='${p.id}' name='id' />
+									<input hidden name='id' type='text' value='${p.id}' />
 								</div>
 							</form>
 						</a>					
@@ -161,13 +162,13 @@
 										</c:choose>
 									</div>
 									<div class="product__action-option">
-										<button onclick="handleLike.bind(this)()" data-id='${p.id}' class="btn-action prouct__action-like">
+										<button title="Thêm vào yêu thích" onclick="handleLike.bind(this)()" data-id='${p.id}' class="btn-action prouct__action-like">
 											<i class="far fa-heart"></i>
 										</button>
-										<button onclick="handleCart.bind(this)()" data-id='${p.id}' class="btn-action product__action-cart">
+										<button title="Thêm vào giỏ hàng" onclick="handleCart.bind(this)()" data-id='${p.id}' class="btn-action product__action-cart">
 											<i class="fas fa-shopping-basket"></i>
 										</button>
-										<button data-id='${p.id}' class="btn-action product__action-buy">
+										<button onclick='handleBuy.bind(this)()' data-id='${p.id}' class="btn-action product__action-buy">
 											<i class="fas fa-shopping-basket"></i> Mua ngay
 										</button>
 									</div>

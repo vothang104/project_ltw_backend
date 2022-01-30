@@ -7,8 +7,8 @@ public class PageRequest implements IPageble {
 	private Integer page;
 	private Integer itemPerPage;
 	private Sorter sorter;
-	private Condition condition;
-	public PageRequest(Integer page, Integer itemPerPage, Sorter sorter, Condition condition) {
+	private Condition[] condition;
+	public PageRequest(Integer page, Integer itemPerPage, Sorter sorter, Condition[] condition) {
 		this.page = page;
 		this.itemPerPage = itemPerPage;
 		this.sorter = sorter;
@@ -55,12 +55,12 @@ public class PageRequest implements IPageble {
 	}
 
 
-	public Condition getCondition() {
+	public Condition[] getCondition() {
 		return condition;
 	}
 
 
-	public void setCondition(Condition condition) {
+	public void setCondition(Condition[] condition) {
 		this.condition = condition;
 	}
 

@@ -86,7 +86,7 @@
 				<div class="detailproduct-right">
 					<div class="detailproduct-right__name-wrap">
 						<h3 class="detailproduct-right__name">${product.name}</h3>
-						<i class="detailproduct-right__like far fa-heart"></i>
+						<i data-id='${product.id}' class="detailproduct-right__like far fa-heart"></i>
 					</div>
 					<div class="detailproduct-right__brand-wrap">
 						<span>Thương hiệu:</span> <span class="detailproduct-right__brand">${product.branch}</span>
@@ -99,16 +99,16 @@
 						</span>
 						</c:if>
 					</div>
-					<form action="" class="detailproduct-right__form">
+					<form action="pay" method="post" class="detailproduct-right__form">
 						<p class="detailproduct-right__form-size-wrap">
 							kích thước: <span class="detailproduct-right__form-size">S</span>
 						</p>
 						<div class="detailproduct-right__size-wrap">
-							<input checked class='input-size' id="S" hidden type="radio"name='size'>
+							<input checked class='input-size' id="S" hidden type="radio" value='S' name='size${product.id}'>
 							<label for="S" class="detailproduct-right__size-label">S</label>
-							<input class='input-size' id="M" hidden type="radio" name='size'>
+							<input class='input-size' id="M" hidden type="radio" value='M' name='size${product.id}'>
 							<label for="M" class="detailproduct-right__size-label">M</label>
-							<input class='input-size' id="L" hidden type="radio" name='size'>
+							<input class='input-size' id="L" hidden type="radio" value='L' name='size${product.id}'>
 							<label for="L" class="detailproduct-right__size-label">L</label>
 						</div>
 						<div class="detailproduct-right__number-wrap">
@@ -122,7 +122,7 @@
 							</button>
 						</div>
 						<div class="detailproduct-right__btn-action-wrap">
-							<button type="button" class="btn btn-cart">THÊM VÀO GIỎ</button>
+							<button data-id='${product.id}' type="button" class="btn btn-cart">THÊM VÀO GIỎ</button>
 							<button type="submit" class="btn btn-buy">MUA NGAY</button>
 							<input type='text' name='id' hidden value='${product.id}' />
 						</div>
@@ -718,3 +718,14 @@
 <script src="<c:url value='/templates/web/js/productdetail.js' />"></script>
 <script src="<c:url value='/templates/web/js/addtocart.js' />"></script>
 <script src="<c:url value='/templates/web/js/buy.js' />"></script>
+<script>
+window.addEventListener( "pageshow", function ( event ) {
+	  var historyTraversal = event.persisted || 
+	                         ( typeof window.performance != "undefined" && 
+	                              window.performance.navigation.type === 2 );
+	  if ( historyTraversal ) {
+	    // Handle page restore.
+	    window.location.reload();
+	  }
+	});
+</script>

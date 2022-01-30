@@ -18,9 +18,7 @@
 					<div class="pay-infor__title">
 						<h1 class="pay-infor__title--title">Thông tin nhận hàng</h1>
 						<div class="pay-infor__title--login">
-							<a class="link link-login" href="#"> <span> <i
-									class="far fa-user"></i>
-							</span> <span> Đăng nhập </span>
+							<a class="link link-login" href="#"> 
 							</a>
 						</div>
 					</div>
@@ -82,43 +80,40 @@
 
 		<div class="col l-4 m-12 c-12 product-pay">
 			<div class="product-pay__title">
-				<h1 class="product-pay__title--title">Đơn hàng (3 sản phẩm)</h1>
+				<h1 class="product-pay__title--title">Đơn hàng (${cart.size()})</h1>
 			</div>
 			<div class="product-pay__title--product">
+			<c:forEach items="${cart}" var="item">
 				<div class="row order-product">
 					<div class="col l-9 order-product-product">
+						<c:forEach items="${listImage}" var="iamge">
+						<c:if test="${image.productId eq item.value.id}">
+						<c:choose>
+						<c:when test="${image.isLinkOnline eq true}">
 						<div class="order-product__image">
-							<img src="./assets/image/polo-xanh-1.webp" alt="">
+							<img src="${image.link}" alt="">
 						</div>
+						</c:when>
+						<c:otherwise>
+						<div class="order-product__image">
+							<img src="upload/${image.link}" alt="">
+						</div>
+						</c:otherwise>
+						</c:choose>
+						</c:if>
+						</c:forEach>
 						<div class="order-product__infor">
-							<div class="order-product__infor--name">Áo polo phối khóa
-								cổ</div>
+							<div class="order-product__infor--name">${item.value.name}</div>
 							<div class="order-product__infor--size-color">
-								<span>M</span><span>/</span><span>Xanh</span>
+								<span>Kích thước:${item.value.size}(x${item.value.quantity})</span>
 							</div>
 						</div>
 					</div>
 					<div class="col l-3 order-product__price">
-						798.000 <sup><del>đ</del></sup>
+						${item.value.totalPriceFormat}<sup><del>đ</del></sup>
 					</div>
 				</div>
-				<div class="row order-product">
-					<div class="col l-9 order-product-product">
-						<div class="order-product__image">
-							<img src="./assets/image/polo-xanh-1.webp" alt="">
-						</div>
-						<div class="order-product__infor">
-							<div class="order-product__infor--name">Áo polo phối khóa
-								cổ</div>
-							<div class="order-product__infor--size-color">
-								<span>M</span><span>/</span><span>Xanh</span>
-							</div>
-						</div>
-					</div>
-					<div class="col l-3 order-product__price">
-						798.000 <sup><del>đ</del></sup>
-					</div>
-				</div>
+			</c:forEach>
 			</div>
 			<div class="product-pay__title--discount-code">
 				<input type="text" placeholder="Nhập mã giảm giá">
@@ -128,7 +123,7 @@
 				<div class="row-flex">
 					<div class="order-product__infor--name">Tạm tính</div>
 					<div class="order-product__price">
-						1.557.000<sup><del>đ</del></sup>
+						${total}<sup><del>đ</del></sup>
 					</div>
 				</div>
 				<div class="row-flex">
@@ -140,7 +135,7 @@
 				<div class="row-flex">
 					<div class="order-product__infor--name total-text">Tổng tiền</div>
 					<div class="order-product__price total-price">
-						1.557.000<sup><del>đ</del></sup>
+						${total}<sup><del>đ</del></sup>
 					</div>
 				</div>
 				<div class="row-flex row-end">
@@ -148,7 +143,7 @@
 					<div class="link-comeback">
 						<a class="link-login" href="#"> <span> <i
 								class="fas fa-angle-left"></i>
-						</span> <a class="link-cart" href="./cart.html">Quay về giỏ hàng</a>
+						</span> <a class="link-cart" href="${pageContext.request.contextPath}/cart">Quay về giỏ hàng</a>
 						</a>
 					</div>
 				</div>

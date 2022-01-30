@@ -98,17 +98,18 @@ public class AllProductAjaxController extends HttpServlet {
 					
 				}
 			}
-			writer.println("<form data-id='"+p.getId()+"' action='' method='get' class='hide-on-taplet product__size'>");
+			writer.println("<form data-id='"+p.getId()+"' action='pay' method='post' class='hide-on-taplet product__size'>");
 			writer.println("<div class='product__size-wrap'>" + 
-					"<input class='product__size-option' hidden type='radio' name='size"+p.getId()+"'" + 
+					"<input checked class='product__size-option' hidden type='radio' value='S' name='size"+p.getId()+"'" + 
 					" id='s"+p.getId()+"'>" + 
 					"<label for='s"+p.getId()+"' class='product__size-label'>S</label>" + 
-					" <input class='product__size-option' hidden type='radio' name='size"+p.getId()+"'" + 
+					" <input class='product__size-option' hidden type='radio' value='M' name='size"+p.getId()+"'" + 
 					" id='m"+p.getId()+"'>" + 
 					" <label for='m"+p.getId()+"' class='product__size-label'>M</label>" + 
-					" <input class='product__size-option' hidden type='radio' name='size'" + 
+					" <input class='product__size-option' hidden type='radio' value='L' name='size"+p.getId()+"'" + 
 					"  id='l"+p.getId()+"'>" + 
 					"  <label for='l"+p.getId()+"' class='product__size-label'>L</label>" + 
+					"<input type='text' hidden value='"+p.getId()+"' name='id' />" +
 					" </div>");
 			writer.println("</form>");
 			writer.println("</a>");
@@ -141,7 +142,7 @@ public class AllProductAjaxController extends HttpServlet {
 					" <button onclick='handleCart.bind(this)()' data-id='"+p.getId()+"' class='btn-action product__action-cart'>" + 
 					"  <i class='fas fa-shopping-basket'></i>" + 
 					" </button>" + 
-					" <button data-id='"+p.getId()+"' class='btn-action product__action-buy'>" + 
+					" <button onclick='handleBuy.bind(this)()' data-id='"+p.getId()+"' class='btn-action product__action-buy'>" + 
 					"  <i class='fas fa-shopping-basket'></i> Mua ngay" + 
 					" </button>" + 
 					"  </div>");

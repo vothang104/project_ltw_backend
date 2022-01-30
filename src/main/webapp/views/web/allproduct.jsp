@@ -15,7 +15,7 @@
 
 <div class="grid wide">
                 <div class="container-newproduct__direct">
-                    <a href="./index.html">Trang chủ</a> <span>/</span> <span>Sản phẩm mới</span>
+                    <a href="${pageContext.request.contextPath}/home">Trang chủ</a> <span>/</span> <span>Sản phẩm mới</span>
                 </div>
                 <div class="row">
                     <div class="col l-3 m-4 c-0 min-0">
@@ -184,13 +184,13 @@
 						</c:choose>		
 						</c:if>
 						</c:forEach>
-							<form data-id='${p.id}' action="" method="get" class="hide-on-taplet product__size">
+							<form data-id='${p.id}' action="pay" method="post" class="hide-on-taplet product__size">
 								<div class="product__size-wrap">
-									<input class="product__size-option" hidden type="radio" name="size${p.id}" id="s${p.id}">
+									<input checked class="product__size-option" hidden type="radio" value='S' name="size${p.id}" id="s${p.id}">
 									<label for="s${p.id}" class="product__size-label">S</label>
-									<input class="product__size-option" hidden type="radio" name="size${p.id}" id="m${p.id}">
+									<input class="product__size-option" hidden type="radio" value='M' name="size${p.id}" id="m${p.id}">
 									<label for="m${p.id}" class="product__size-label">M</label>
-									<input class="product__size-option" hidden type="radio" name="size${p.id}" id="l${p.id}">
+									<input class="product__size-option" hidden type="radio" value='L' name="size${p.id}" id="l${p.id}">
 									<label for="l${p.id}" class="product__size-label">L</label>
 									<input type='text' hidden value='${p.id}' name='id' />
 								</div>
@@ -228,7 +228,7 @@
 										<button onclick="handleCart.bind(this)()" data-id='${p.id}' class="btn-action product__action-cart">
 											<i class="fas fa-shopping-basket"></i>
 										</button>
-										<button data-id='${p.id}' class="btn-action product__action-buy">
+										<button onclick='handleBuy.bind(this)()' data-id='${p.id}' class="btn-action product__action-buy">
 											<i class="fas fa-shopping-basket"></i> Mua ngay
 										</button>
 									</div>
@@ -322,5 +322,16 @@ function handlePageLink() {
 	})
 	.catch(err => console.log(err))
 }
+</script>
+<script>
+window.addEventListener( "pageshow", function ( event ) {
+	  var historyTraversal = event.persisted || 
+	                         ( typeof window.performance != "undefined" && 
+	                              window.performance.navigation.type === 2 );
+	  if ( historyTraversal ) {
+	    // Handle page restore.
+	    window.location.reload();
+	  }
+	});
 </script>
 

@@ -1,7 +1,9 @@
 package ego.wear.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,26 +11,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ego.wear.cart.ItemCart;
 import ego.wear.model.ImageModel;
-import ego.wear.model.ProductModel;
-import ego.wear.pagination.PageRequest;
 import ego.wear.service.impl.ImageService;
-import ego.wear.service.impl.ProductService;
-import ego.wear.sort.Sorter;
+import ego.wear.util.FormatPriceUtil;
 import ego.wear.util.RequestSetAttributeUtil;
 import ego.wear.util.SessionUtil;
 
 /**
- * Servlet implementation class HomeController
+ * Servlet implementation class CartController
  */
-@WebServlet(urlPatterns = {"/home"})
-public class HomeController extends HttpServlet {
+@WebServlet(urlPatterns = {"/cart"})
+public class CartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeController() {
+    public CartController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,23 +37,21 @@ public class HomeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestSetAttributeUtil.setCategory(request);
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		
-		List<ProductModel> listTop4NewProduct = ProductService.getInstance().findAll(new PageRequest(1, 4, new Sorter("desc", "id"), null));
 		List<ImageModel> listImage = ImageService.getInstance().findAllOneProduct();
-		
-		if(request.getParameter("action") != null) {
-			String action = request.getParameter("action");
-			if(action.equals("logout")) {
-				SessionUtil.getInstance().removeValue(request, "user");
-				SessionUtil.getInstance().removeValue(request, "cart");
-				SessionUtil.getInstance().removeValue(request, "enjoy");
+		Map<Long, ItemCart> cart = (HashMap<Long, ItemCart>) SessionUtil.getInstance().getValue(request, "cart");
+		int total = 0;
+		if(cart != null) {
+			for (Map.Entry<Long, ItemCart> entry : cart.entrySet()) {
+				total += entry.getValue().getPrice() * entry.getValue().getQuantity();
 			}
 		}
-		
-		request.setAttribute("listTop4NewProduct", listTop4NewProduct);
+		RequestSetAttributeUtil.setCategory(request);
 		request.setAttribute("listImage", listImage);
-		request.getRequestDispatcher("views/web/home.jsp").forward(request, response);
+		request.setAttribute("total", FormatPriceUtil.formatPrice(total));
+		request.getRequestDispatcher("views/web/cart.jsp").forward(request, response);
 	}
 
 	/**

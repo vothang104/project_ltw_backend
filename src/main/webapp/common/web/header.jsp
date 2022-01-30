@@ -92,13 +92,29 @@
                             </div>
                             <div class="header-up__options-enjoy">
                                 <i class="fas fa-heart"></i>
-                                <a href="${pageContext.request.contextPath}/views/web/enjoy.jsp">Yêu thích</a>
-                                <span>0</span>
+                                <a href="${pageContext.request.contextPath}/enjoy">Yêu thích</a>
+                                <c:choose>
+                                <c:when test="${sessionScope.enjoy ne null}">
+                                <span class="js-label-enjoy"><b>${sessionScope.enjoy.size()}</b></span>
+                                </c:when>
+                                <c:otherwise>
+                                <span class="js-label-enjoy"><b>0</b></span>
+                                </c:otherwise>
+                                </c:choose>        
                             </div>
                             <div class="header-up__options-cart">
                                 <i class="fas fa-shopping-cart"></i>
-                                <a href="${pageContext.request.contextPath}/views/web/cart.jsp">Giỏ hàng</a>
-                                <span>0</span>
+                                <a href="${pageContext.request.contextPath}/cart">Giỏ hàng</a>
+                                <span class="js-label-cart">
+                                <c:choose>
+                                <c:when test="${sessionScope.cart ne null}">
+                                <b>${cart.size()}</b>
+                                </c:when>
+                                <c:otherwise>
+                                <b>0</b>
+                                </c:otherwise>
+                                </c:choose>                                
+                                </span>
                             </div>
                         </div>
                     </div>

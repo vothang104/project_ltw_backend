@@ -3,9 +3,12 @@ package ego.wear.DAO.impl;
 import java.util.List;
 
 import ego.wear.DAO.IProductDAO;
+import ego.wear.condition.Condition;
 import ego.wear.mapper.ProductMapper;
 import ego.wear.model.ProductModel;
 import ego.wear.pagination.IPageble;
+import ego.wear.pagination.PageRequest;
+import ego.wear.sort.Sorter;
 
 public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO{
 	public static ProductDAO productDao = null;
@@ -20,7 +23,17 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
 		StringBuilder sql = new StringBuilder("SELECT * FROM product");
 		if(pageble != null) {
 			if(pageble.getCondition() != null) {
-				sql.append(" WHERE " + pageble.getCondition().getConditionName() + " = " + pageble.getCondition().getConditionValue());
+				int length = pageble.getCondition().length;
+				for(int i = 0; i < length; i++) {
+					Condition con = pageble.getCondition()[i];
+					if(i > 0) {
+						sql.append(" AND " + con.getConditionName() + " " + con.getConditionType() + " " + con.getConditionValue());
+					}else {
+						sql.append(" WHERE " + con.getConditionName() + " " + con.getConditionType() + " " + con.getConditionValue());
+					}
+					
+				}
+//				sql.append(" WHERE " + pageble.getCondition().getConditionName() + " = " + pageble.getCondition().getConditionValue());
 			}
 			if(pageble.getSorter() != null) {
 				sql.append(" ORDER BY " + pageble.getSorter().getSortBy() + " " + pageble.getSorter().getSortName());
@@ -33,8 +46,12 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
 	}
 	@Override
 	public ProductModel findById(long id) {
-		String sql = "SELECT * FROM product where id = ?";
-		return query(sql, new ProductMapper(), id).get(0);
+		String sql = "SELECT * FROM product where id = ? AND quantity > 0";
+		List<ProductModel> list = query(sql, new ProductMapper(), id);
+		if(!list.isEmpty()) {
+			return list.get(0);
+		}
+		return null;
 	}
 
 	@Override
@@ -56,7 +73,12 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
 	}
 	
 	public static void main(String[] args) {
-		
+		Condition[] arrCondition = new Condition[1];
+		arrCondition[0] = new Condition("quantity", 0, ">");
+		List<ProductModel> list = ProductDAO.getInstance().findAll(new PageRequest(1, 12, new Sorter("desc", "id"), arrCondition));
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(i + 1 + " " + list.get(i).getName());
+		}
 	}
 	
 }

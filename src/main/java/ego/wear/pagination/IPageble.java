@@ -8,5 +8,5 @@ public interface IPageble {
 	Integer getOffset();
 	Integer getLitmit();
 	Sorter getSorter();
-	Condition getCondition();
+	Condition[] getCondition();
 }

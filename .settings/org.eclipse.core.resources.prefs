@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/main/java/ego/wear/DAO/impl/ProductDAO.java=UTF-8
 encoding//src/main/java/ego/wear/DAO/impl/RoleDAO.java=UTF-8
 encoding//src/main/java/ego/wear/DAO/impl/SubCategoryDAO.java=UTF-8
+encoding//src/main/java/ego/wear/controller/AddToCartAjaxController.java=UTF-8
 encoding//src/main/java/ego/wear/controller/AllProductAjaxController.java=UTF-8
 encoding//src/main/java/ego/wear/controller/LoginController.java=UTF-8
 encoding//src/main/java/ego/wear/controller/SignupController.java=UTF-8

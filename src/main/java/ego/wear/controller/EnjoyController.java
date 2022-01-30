@@ -1,6 +1,7 @@
 package ego.wear.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,24 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import ego.wear.model.ImageModel;
 import ego.wear.model.ProductModel;
-import ego.wear.pagination.PageRequest;
 import ego.wear.service.impl.ImageService;
-import ego.wear.service.impl.ProductService;
-import ego.wear.sort.Sorter;
 import ego.wear.util.RequestSetAttributeUtil;
 import ego.wear.util.SessionUtil;
 
 /**
- * Servlet implementation class HomeController
+ * Servlet implementation class EnjoyController
  */
-@WebServlet(urlPatterns = {"/home"})
-public class HomeController extends HttpServlet {
+@WebServlet(urlPatterns = {"/enjoy"})
+public class EnjoyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeController() {
+    public EnjoyController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,23 +35,17 @@ public class HomeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestSetAttributeUtil.setCategory(request);
-		
-		List<ProductModel> listTop4NewProduct = ProductService.getInstance().findAll(new PageRequest(1, 4, new Sorter("desc", "id"), null));
-		List<ImageModel> listImage = ImageService.getInstance().findAllOneProduct();
-		
-		if(request.getParameter("action") != null) {
-			String action = request.getParameter("action");
-			if(action.equals("logout")) {
-				SessionUtil.getInstance().removeValue(request, "user");
-				SessionUtil.getInstance().removeValue(request, "cart");
-				SessionUtil.getInstance().removeValue(request, "enjoy");
-			}
-		}
-		
-		request.setAttribute("listTop4NewProduct", listTop4NewProduct);
+	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
+	
+	RequestSetAttributeUtil.setCategory(request);
+	List<ImageModel> listImage = ImageService.getInstance().findAllOneProduct();
+	HashMap<Long, ProductModel> enjoy = (HashMap<Long, ProductModel>)  SessionUtil.getInstance().getValue(request, "enjoy");
+	if(enjoy != null) {
+		request.setAttribute("enjoy", enjoy);
 		request.setAttribute("listImage", listImage);
-		request.getRequestDispatcher("views/web/home.jsp").forward(request, response);
+	}
+	request.getRequestDispatcher("views/web/enjoy.jsp").forward(request, response);
 	}
 
 	/**
