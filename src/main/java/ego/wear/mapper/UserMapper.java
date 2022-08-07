@@ -12,7 +12,7 @@ public class UserMapper implements IRowMapper<UserModel> {
 		try {
 			long id = res.getLong("id");
 			String username = res.getString("username");
-			String password = res.getString("password");
+			String password = res.getString("user_password");
 			String phoneNumber = res.getString("phone_number");
 			String email = res.getString("email");
 			long roleId = res.getLong("role_id");

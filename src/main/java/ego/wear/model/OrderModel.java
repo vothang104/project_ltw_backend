@@ -3,6 +3,8 @@ package ego.wear.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import ego.wear.util.FormatPriceUtil;
+
 public class OrderModel extends AbstractModel implements Serializable{
 	/**
 	 * 
@@ -10,21 +12,25 @@ public class OrderModel extends AbstractModel implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int totalPrice;
 	private String status;
-	private Timestamp shipDate;
+	private Timestamp orderDate;
+	private Timestamp recieveDate;
+	private String detail;
 	private long userId;
 	public OrderModel(long id, String createdBy, Timestamp createdDate, String modifiedBy, Timestamp modifiedDate,
-			int totalPrice, String status, Timestamp shipDate, long userId) {
+			int totalPrice, String status, Timestamp orderDate, Timestamp recieveDate, String detail, long userId) {
 		super(id, createdBy, createdDate, modifiedBy, modifiedDate);
 		this.totalPrice = totalPrice;
 		this.status = status;
-		this.shipDate = shipDate;
+		this.orderDate = orderDate;
+		this.recieveDate = recieveDate;
+		this.detail = detail;
 		this.userId = userId;
 	}
 	public OrderModel() {
 		
 	}
-	public int getTotalPrice() {
-		return totalPrice;
+	public String getTotalPrice() {
+		return FormatPriceUtil.formatPrice(totalPrice);
 	}
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
@@ -35,12 +41,26 @@ public class OrderModel extends AbstractModel implements Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Timestamp getShipDate() {
-		return shipDate;
+	public Timestamp getOrderDate() {
+		return orderDate;
 	}
-	public void setShipDate(Timestamp shipDate) {
-		this.shipDate = shipDate;
+	public void setOrderDate(Timestamp orderDate) {
+		this.orderDate = orderDate;
 	}
+	public Timestamp getRecieveDate() {
+		return recieveDate;
+	}
+	public void setRecieveDate(Timestamp recieveDate) {
+		this.recieveDate = recieveDate;
+	}
+	
+	public String getDetail() {
+		return detail;
+	}
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+	
 	public long getUserId() {
 		return userId;
 	}

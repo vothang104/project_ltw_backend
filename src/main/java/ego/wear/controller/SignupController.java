@@ -61,6 +61,7 @@ public class SignupController extends HttpServlet {
 			UserModel user = UserService.getInstance().insert(new UserModel(0, null, new Timestamp(System.currentTimeMillis()),
 					null, null, username, MD5Util.getInstance().getMD5(password), phoneNumber, email, 1, roleId));
 			if(user != null) {
+//				SendMailUtil.getInstance().sendRegisterSuccess(user.getEmail());
 				response.sendRedirect(request.getServletContext().getContextPath() + "/login");
 			}else {
 				request.setAttribute("message", "Đăng ký không thành công");

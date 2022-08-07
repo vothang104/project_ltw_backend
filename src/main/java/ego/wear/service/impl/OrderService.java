@@ -19,7 +19,10 @@ public class OrderService implements IOrderService {
 	public List<OrderModel> findAll() {
 		return OrderDAO.getInstance().findAll();
 	}
-
+	@Override
+	public List<OrderModel> findByIdUser(long idUser) {
+		return OrderDAO.getInstance().findByIdUser(idUser);
+	}
 	@Override
 	public OrderModel findById(long id) {
 		return OrderDAO.getInstance().findById(id);

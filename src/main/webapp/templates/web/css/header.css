@@ -270,6 +270,7 @@ a.menu-mobile__item-nameuser {
     align-items: center;
     cursor: pointer;
 }
+
 .header-up__options-login::before {
     content: '';
     position: absolute;
@@ -290,6 +291,7 @@ a.menu-mobile__item-nameuser {
     color: var(--gray-dark);
     user-select: none;
 }
+
 .header-up__options-login:hover a:not(.header-up__options-login__link) {
     color: var(--orange);
 }
@@ -298,7 +300,7 @@ a.menu-mobile__item-nameuser {
 .header-up__options-login__list {
     position: absolute;
     z-index: 10;
-    left: -190%;
+    left: -50%;
     top: 140%;
     background-color: var(--white);
     list-style: none;
@@ -309,6 +311,7 @@ a.menu-mobile__item-nameuser {
     transform-origin: top center;
     transition: all ease-in 0.2s;
 }
+
 .header-up__options-login__list::before {
     content: '';
     position: absolute;
@@ -319,23 +322,27 @@ a.menu-mobile__item-nameuser {
     height: 14px;
     background-color: var(--white);
     border: 1px solid;
-    border-color: var(--red)  transparent transparent var(--red);
+    border-color: var(--red) transparent transparent var(--red);
     border-radius: 4px;
     transform: translate(-50%, -50%) rotate(45deg);
     /* border:15px solid;
     border-color: transparent transparent var(--light) transparent; */
 }
+
 .header-up__options-login__item {
     width: 100%;
 }
+
 .header-up__options-login__link {
     display: inline-block;
     width: 100%;
     padding: 8px 5px;
 }
+
 .header-up__options-login__link:hover {
     color: var(--orange);
 }
+
 .header-up__options-login:hover .header-up__options-login__list {
     transform: scale(1, 1);
 }
@@ -435,6 +442,7 @@ a.menu-mobile__item-nameuser {
     height: 50px;
     margin-right: 50px;
 }
+
 .header-down__wrap-link:last-of-type {
     margin-right: 0;
 }
@@ -553,12 +561,15 @@ a.menu-mobile__item-nameuser {
 .header-down__list-news {
     width: 150px;
 }
+
 .header-down__news-link {
     color: var(--gray-dark);
 }
+
 .header-down__news-link:hover {
     color: var(--orange);
 }
+
 /**************************************container*****************/
 .container {
     position: relative;

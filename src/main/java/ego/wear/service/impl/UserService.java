@@ -53,10 +53,10 @@ public class UserService implements IUserService {
 	}
 	
 	public static void main(String[] args) {
-		UserModel user = new UserModel(0, null, null, null, null, "user", MD5Util.getInstance().getMD5("useruser"), "0378192301", "user@gmail.com", 1, 2);
-		user = UserService.getInstance().insert(user);
-		System.out.println(user.getUsername());
-		
+		List<UserModel> list = UserService.getInstance().findAll();
+		for(UserModel m: list) {
+			System.out.println(m.getUsername());
+		}
 	}
 	
 }
