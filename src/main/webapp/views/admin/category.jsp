@@ -15,14 +15,11 @@
 <div class="action">
 	<a title="Thêm mục loại" href="${pageContext.request.contextPath}/admin-insertcategory"
 		class="action__add"> <i class="action-icon fas fa-plus"></i>
-	</a> <a title="Xóa mục loại" href="" class="action__delete"> <i
-		class="action-icon far fa-trash-alt"></i>
 	</a>
 </div>
-	<form action="${pageContext.request.contextPath}/admin-deletecategory" method="post" class="categories__body-wrap">
 <div class="categories">
 	<div class="categories__header">
-		<p class="categories__header-column categories__header-choose">Chọn</p>
+		<p class="categories__header-column categories__header-choose">STT</p>
 		<div class="categories__header-column categories__header-name">Tên
 			mục loại</div>
 		<div class="categories__header-column categories__header-update">Chỉnh
@@ -30,21 +27,22 @@
 	</div>
 	<input hidden value="delete" name="type" />
 	<div class="categories__body-wrap">
-	<c:forEach items="${listCategory}" var="cate">
+	<c:forEach items="${listCategory}" var="cate" varStatus="loop">
 		<div class="categories__body">
 			<div class="categories__body-column categories__body-choose">
-				<input value="${cate.id}" name="deleteId" class="check-delete" type="checkbox">
+				${loop.count}
 			</div>
 			<div class="categories__body-column categories__body-name">${cate.name}</div>
-			<div class="categories__body-column categories__body-update">
+			<div style="column-gap: 5px" class="categories__body-column categories__body-update">
 				<a title="chỉnh sửa mục loại" href="${pageContext.request.contextPath}/admin-editcategory?id=${cate.id}"
 					class="categories__body-icon far fa-edit"></a>
+				<a title="Xóa mục loại" href="${pageContext.request.contextPath}/admin-deletecategory?type=delete&id=${cate.id}" class="categories__body-icon far fa-trash-alt">
+				</a>
 			</div>
 		</div>
 	</c:forEach>
 	</div>
 </div>
-	</form>
 <div class="pagination">
 	<ul class="pagination__list">
 		<%-- <li class="pagination__list-item"><a href=""

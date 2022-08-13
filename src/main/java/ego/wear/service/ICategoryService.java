@@ -11,4 +11,5 @@ public interface ICategoryService {
 	CategoryModel findById(long id);
 	CategoryModel insert(CategoryModel categoryModel);
 	CategoryModel update(CategoryModel categoryModel);
+	int delete(long id);
 }

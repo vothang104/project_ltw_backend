@@ -1,6 +1,11 @@
 package ego.wear.DAO.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
+
+import com.mysql.cj.protocol.Resultset;
 
 import ego.wear.DAO.ICategoryDAO;
 import ego.wear.condition.Condition;
@@ -22,6 +27,22 @@ public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategory
 	public List<CategoryModel> findAll() {
 		String sql = "SELECT * FROM category";
 		return query(sql, new CategoryMapper());
+	}
+	@Override
+	public int delete(long id) {
+		String sql = "Delete from category where id = ?";
+		Connection conn = getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setLong(1, id);
+			int result = ps.executeUpdate();
+			return result;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 	@Override
 	public List<CategoryModel> findAllPagination(IPageble pageble) {
@@ -72,10 +93,8 @@ public class CategoryDAO extends AbstractDAO<CategoryModel> implements ICategory
 		return id;
 	}
 	public static void main(String[] args) {
-		List<CategoryModel> list = CategoryDAO.getInstance().findAllPagination(new PageRequest(1, 4, new Sorter("asc", "id"), null));
-		for(CategoryModel c: list) {
-			System.out.println(c.getName());
-		}
+		int result = CategoryDAO.getInstance().delete(11);
+		System.out.println(result);
 	}
 	
 }
