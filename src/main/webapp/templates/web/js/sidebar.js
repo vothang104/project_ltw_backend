@@ -54,7 +54,7 @@ brandBtns.forEach(brandBtn => {
             }
             const pageConfig = JSON.parse(localStorage.getItem('pageConfig'));
             const filterStorage = JSON.parse(localStorage.getItem('filter'))
-            fetch(`/ProjectWeb/api-allproduct?type=${pageConfig.type}${pageConfig.categoryId ? `&id=${pageConfig.categoryId}` : ''}&page=${pageConfig.currentPage}&sort=${pageConfig.sort}&brand=${filterStorage.brand.join('-')}&material=${filterStorage.material.join('-')}&price=${filterStorage.price}`)
+            fetch(`/ProjectWeb/api-allproduct?type=${pageConfig.type}${pageConfig.categoryId ? `&id=${pageConfig.categoryId}` : ''}${pageConfig.search ? `&search=${pageConfig.search}` : ''}&page=${pageConfig.currentPage}&sort=${pageConfig.sort}&brand=${filterStorage.brand.join('-')}&material=${filterStorage.material.join('-')}&price=${filterStorage.price}`)
                 .then(resp => resp.text())
                 .then(data => {
                     document.querySelector('.list-product-js').innerHTML = data;
@@ -87,7 +87,7 @@ materialBtns.forEach(materialBtn => {
             }
             const pageConfig = JSON.parse(localStorage.getItem('pageConfig'));
             const filterStorage = JSON.parse(localStorage.getItem('filter'))
-            fetch(`/ProjectWeb/api-allproduct?type=${pageConfig.type}${pageConfig.categoryId ? `&id=${pageConfig.categoryId}` : ''}&page=${pageConfig.currentPage}&sort=${pageConfig.sort}&brand=${filterStorage.brand.join('-')}&material=${filterStorage.material.join('-')}&price=${filterStorage.price}`)
+            fetch(`/ProjectWeb/api-allproduct?type=${pageConfig.type}${pageConfig.categoryId ? `&id=${pageConfig.categoryId}` : ''}${pageConfig.search ? `&search=${pageConfig.search}` : ''}&page=${pageConfig.currentPage}&sort=${pageConfig.sort}&brand=${filterStorage.brand.join('-')}&material=${filterStorage.material.join('-')}&price=${filterStorage.price}`)
                 .then(resp => resp.text())
                 .then(data => {
                     document.querySelector('.list-product-js').innerHTML = data;
@@ -112,7 +112,7 @@ priceBtns.forEach(priceBtn => {
             localStorage.setItem('filter', JSON.stringify(filter));
             const pageConfig = JSON.parse(localStorage.getItem('pageConfig'));
             const filterStorage = JSON.parse(localStorage.getItem('filter'));
-            fetch(`/ProjectWeb/api-allproduct?type=${pageConfig.type}${pageConfig.categoryId ? `&id=${pageConfig.categoryId}` : ''}&page=${pageConfig.currentPage}&sort=${pageConfig.sort}&brand=${filterStorage.brand.join('-')}&material=${filterStorage.material.join('-')}&price=${filterStorage.price}`)
+            fetch(`/ProjectWeb/api-allproduct?type=${pageConfig.type}${pageConfig.categoryId ? `&id=${pageConfig.categoryId}` : ''}${pageConfig.search ? `&search=${pageConfig.search}` : ''}&page=${pageConfig.currentPage}&sort=${pageConfig.sort}&brand=${filterStorage.brand.join('-')}&material=${filterStorage.material.join('-')}&price=${filterStorage.price}`)
                 .then(resp => resp.text())
                 .then(data => {
                     document.querySelector('.list-product-js').innerHTML = data;

@@ -23,6 +23,11 @@ public class ItemService implements IItemService {
 	}
 
 	@Override
+	public List<ItemModel> findByIdOrder(long idOrder) {
+		return ItemDAO.getInstance().findByIdOrder(idOrder);
+	}
+
+	@Override
 	public ItemModel findById(long id) {
 		return ItemDAO.getInstance().findById(id);
 	}
@@ -39,11 +44,9 @@ public class ItemService implements IItemService {
 		return findById(itemModel.getId());
 	}
 	public static void main(String[] args) {
-		ItemModel item = ItemService.getInstance().findById(1);
-		item.setPrice(355000);
-		item.setModifiedDate(new Timestamp(System.currentTimeMillis()));
-		
-		item = ItemService.getInstance().update(item);
-		System.out.println(item.getPrice());
+		for(ItemModel o: ItemService.getInstance().findByIdOrder(1)) {
+			System.out.println(o.getName());
+		}
 	}
+
 }

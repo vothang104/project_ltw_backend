@@ -33,9 +33,9 @@
 	</ul>
 	<li class="sidebar__item"><i
 		class="sidebar__item-icon fas fa-tshirt"></i> <a
-		href="${pageContext.request.contextPath}/views/admin/products.jsp" class="sidebar__item-link">Sản phẩm</a></li>
+		href="${pageContext.request.contextPath}/admin-allproduct" class="sidebar__item-link">Sản phẩm</a></li>
 	<li class="sidebar__item"><i
 		class="sidebar__item-icon fas fa-receipt"></i> <a
-		href="${pageContext.request.contextPath}/views/admin/manageorder.jsp" class="sidebar__item-link">Quản lý đơn
+		href="${pageContext.request.contextPath}/admin-order" class="sidebar__item-link">Quản lý đơn
 			hàng</a></li>
 </ul>

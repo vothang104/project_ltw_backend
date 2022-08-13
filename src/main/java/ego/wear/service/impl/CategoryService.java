@@ -5,6 +5,7 @@ import java.util.List;
 
 import ego.wear.DAO.impl.CategoryDAO;
 import ego.wear.model.CategoryModel;
+import ego.wear.pagination.IPageble;
 import ego.wear.service.ICategoryService;
 
 public class CategoryService implements ICategoryService {
@@ -19,6 +20,10 @@ public class CategoryService implements ICategoryService {
 	@Override
 	public List<CategoryModel> findAll() {
 		return CategoryDAO.getInstance().findAll();
+	}
+	@Override
+	public List<CategoryModel> findAllPagination(IPageble pageble) {
+		return CategoryDAO.getInstance().findAllPagination(pageble);
 	}
 	@Override
 	public CategoryModel findById(long id) {

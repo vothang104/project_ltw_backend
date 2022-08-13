@@ -7,14 +7,18 @@ function handleSort(pageConfig, sort, { brand, price, material }) {
     const page = pageConfig.currentPage;
     const type = pageConfig.type;
     let categoryId;
+    let search;
     if (pageConfig.categoryId) {
         categoryId = pageConfig.categoryId;
+    }
+    if (pageConfig.search) {
+        search = pageConfig.search;
     }
     pageConfig.sort = sort;
     localStorage.setItem('pageConfig', JSON.stringify(pageConfig));
 
 
-    fetch(`/ProjectWeb/api-allproduct?type=${type}${categoryId ? `&id=${categoryId}` : ''}&page=${page}&sort=${sort}&brand=${brand.join('-')}&material=${material.join('-')}&price=${price}`)
+    fetch(`/ProjectWeb/api-allproduct?type=${type}${categoryId ? `&id=${categoryId}` : ''}${search ? `&search=${search}` : ''}&page=${page}&sort=${sort}&brand=${brand.join('-')}&material=${material.join('-')}&price=${price}`)
         .then(resp => {
             return resp.text();
         })

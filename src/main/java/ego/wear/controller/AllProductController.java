@@ -1,6 +1,7 @@
 package ego.wear.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -78,9 +79,29 @@ public class AllProductController extends HttpServlet {
 			request.setAttribute("listProduct", listProduct);
 			request.getRequestDispatcher("views/web/allproduct.jsp").forward(request, response);
 			break;
+		case "search":
+			String search = request.getParameter("search");
+			List<Condition> listCondition = new ArrayList<>();
+			// tìm tên có chứa cụm từ
+			listCondition.add(new Condition("name", "'%" + search + "%'", "like"));
+			listCondition.add(new Condition("name", "'%" + search + "'", "like"));
+			listCondition.add(new Condition("name", "'" + search + "%'", "like"));
+			
+			// convert from list to array
+			arrCondition = new Condition[listCondition.size()];
+			listCondition.toArray(arrCondition);
+			numberPage = new NumberPage(itemPerPage, ProductService.getInstance().findByName(new PageRequest(null, null, null, arrCondition)).size()).getNumberPage();
+			listProduct = ProductService.getInstance().findByName(new PageRequest(currentPage, itemPerPage,
+					null, arrCondition));
+			request.setAttribute("search", search);
+			request.setAttribute("listImage", listImage);
+			request.setAttribute("numberPage", numberPage);
+			request.setAttribute("listProduct", listProduct);
+			request.getRequestDispatcher("views/web/searchedproducts.jsp").forward(request, response);
+			break;
 		default:
 			break;
-		}
+		}	
 		
 	}
 

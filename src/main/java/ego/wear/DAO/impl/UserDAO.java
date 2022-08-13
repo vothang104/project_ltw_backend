@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import ego.wear.DAO.IUserDAO;
-import ego.wear.mapper.SubCategoryMapper;
 import ego.wear.mapper.UserMapper;
 import ego.wear.model.UserModel;
 
@@ -25,7 +24,11 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO{
 	@Override
 	public UserModel findById(long id) {
 		String sql = "SELECT * FROM users where id = ?";
-		return query(sql, new UserMapper(), id).get(0);
+		List<UserModel> list = query(sql, new UserMapper(), id);
+		if(list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
 	}
 
 	@Override
@@ -39,7 +42,7 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO{
 
 	@Override
 	public long insert(UserModel userModel) {
-		String sql = "INSERT INTO users(username, password, phone_number, email, status, role_id, created_by, created_date)"
+		String sql = "INSERT INTO users(username, user_password, phone_number, email, status, role_id, created_by, created_date)"
 				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		long id = insert(sql, userModel.getUsername(), userModel.getPassword(), userModel.getPhoneNumber(),
 				userModel.getEmail(), userModel.getStatus(), userModel.getRoleId(), userModel.getCreatedBy(), userModel.getCreatedDate());
@@ -48,7 +51,7 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO{
 	// check user
 	@Override
 	public UserModel checkUser(String username, String password) {
-		String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+		String sql = "SELECT * FROM users WHERE username = ? AND user_password = ?";
 		List<UserModel> list = query(sql, new UserMapper(), username, password);
 		if(list.size() > 0) {
 			return list.get(0);
@@ -57,10 +60,10 @@ public class UserDAO extends AbstractDAO<UserModel> implements IUserDAO{
 		}
 	}
 	public static void main(String[] args) {
-		UserModel oldUser = UserDAO.getInstance().findById(1);
-		oldUser.setStatus(0);
-		oldUser.setModifiedDate(new Timestamp(System.currentTimeMillis()));
-		UserDAO.getInstance().update(oldUser);
+		UserModel userModel = new UserModel(0, "admin", new Timestamp(System.currentTimeMillis()), "", null,
+				"vothang", "123456", "0359999999", "vothang@gmail.com", 1, 2);
+		long id = UserDAO.getInstance().insert(userModel);
+		System.out.println(id);
 	}
 	
 }

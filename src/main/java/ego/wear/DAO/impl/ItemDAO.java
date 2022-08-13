@@ -23,13 +23,20 @@ public class ItemDAO extends AbstractDAO<ItemModel> implements IItemDAO{
 		String sql = "SELECT * FROM item";
 		return query(sql, new ItemMapper());
 	}
+	@Override
+	public List<ItemModel> findByIdOrder(long idOrder) {
+		String sql = "SELECT * FROM item where order_id = ?";
+		List<ItemModel> list = query(sql, new ItemMapper(), idOrder);
+		if(list != null) return list;
+		return null;
+	}
 
 	@Override
 	public ItemModel findById(long id) {
 		String sql = "SELECT * FROM item where id = ?";
 		return query(sql, new ItemMapper(), id).get(0);
 	}
-
+	
 	@Override
 	public void update(ItemModel itemModel) {
 		String sql = "UPDATE item SET name = ?,  price = ?, quantity = ?, product_id = ?, order_id = ?, modified_by = ?, modified_date = ? WHERE id = ?";
@@ -39,17 +46,16 @@ public class ItemDAO extends AbstractDAO<ItemModel> implements IItemDAO{
 
 	@Override
 	public long insert(ItemModel itemModel) {
-		String sql = "INSERT INTO item(name, price, quantity, product_id, order_id, created_by, created_date)"
-				+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO item(name, price_sell, quantity, product_id, order_id, size, created_by, created_date)"
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 		long id = insert(sql, itemModel.getName(), itemModel.getPrice(), itemModel.getQuantity(), itemModel.getProductId(),
-				itemModel.getOrderId(), itemModel.getCreatedBy(), itemModel.getCreatedDate());
+				itemModel.getOrderId(), itemModel.getSize(), itemModel.getCreatedBy(), itemModel.getCreatedDate());
 		return id;
 	}
 	public static void main(String[] args) {
-		ItemModel item = ItemDAO.getInstance().findById(1);
-		item.setQuantity(4);
-		item.setModifiedDate(new Timestamp(System.currentTimeMillis()));
-		
-		ItemDAO.getInstance().update(item);
+		List<ItemModel> list = ItemDAO.getInstance().findByIdOrder(1);
+		for(ItemModel o: list) {
+			System.out.println(o.getName());
+		}
 	}
 }

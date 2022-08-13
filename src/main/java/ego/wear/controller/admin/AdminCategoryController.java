@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ego.wear.model.CategoryModel;
+import ego.wear.pagination.IPageble;
+import ego.wear.pagination.NumberPage;
+import ego.wear.pagination.PageRequest;
 import ego.wear.service.impl.CategoryService;
+import ego.wear.sort.Sorter;
 
 /**
  * Servlet implementation class AdminCategoryController
@@ -31,10 +35,23 @@ public class AdminCategoryController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<CategoryModel> categoryList = CategoryService.getInstance().findAll();
-		request.setAttribute("categoryList", categoryList);
-		request.getRequestDispatcher("/views/admin/category.jsp").forward(request, response);
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		int itemPerPage = 4;
+		
+		int numberPage = new NumberPage(itemPerPage, CategoryService.getInstance().findAll().size()).getNumberPage();
+		IPageble pageble = new PageRequest(currentPage, itemPerPage, new Sorter("asc", "id"), null);
+		List<CategoryModel> listCategory = CategoryService.getInstance().findAllPagination(pageble);
+		
+		request.setAttribute("numberPage", numberPage);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("listCategory", listCategory);
+		request.getRequestDispatcher("views/admin/category.jsp").forward(request, response);
 	}
 
 	/**

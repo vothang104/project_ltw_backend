@@ -1,48 +1,54 @@
 package ego.wear.util;
 
-import java.util.Properties;
+import java.util.Date;
 
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.SimpleEmail;
 
 public class SendMailUtil {
-	public static SendMailUtil sendmail = null;
+	public static final String MY_EMAIL = "lcao4568@gmail.com";
+	public static final String MY_PASSWORD = "huqzgtiwfpyvznay";
+	public static SendMailUtil sendmail;
 	public static SendMailUtil getInstance() {
 		if(sendmail != null ) {
 			sendmail = new SendMailUtil();
 		}
 		return sendmail;
 	}
-	public void sendMail(String emailReicieve, String subject, String content) {
-		final String userName = "lcao4568@gmail.com";
-		final String password = "10417818";
-		Properties prop = new Properties();
-		prop.put("mail.smtp.host", "smtp.gmail.com");
-		prop.put("mail.smtp.port", "587");
-		prop.put("mail.smtp.auth", "true");
-		prop.put("mail.smtp.starttls.enable", "true");
-		//login email
-		Session session = Session.getInstance(prop, new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(userName, password);
-			}
-		});
-		// send email message
+	public SendMailUtil() {}
+	public void sendRegisterSuccess(String emailReicieve) {
+		String subject = "Đăng ký tài khoản Ego.wear";
+		String content = "Chúc mừng bạn đăng ký tài khoản thành công";
+		
 		try {
-			MimeMessage message = new MimeMessage(session);
-			message.setFrom(new InternetAddress(userName));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailReicieve));
-			message.setSubject(subject, "UTF-8");
-			message.setText(content, "UTF-8");
-			Transport.send(message);
-		} catch (MessagingException e) {
-			// TODO: handle exception
+			Email email = new SimpleEmail();
+			email.setHostName("smtp.googlemail.com");
+			email.setSmtpPort(587);
+			email.setAuthenticator(new DefaultAuthenticator(MY_EMAIL, MY_PASSWORD));
+			
+			email.setSSLOnConnect(true);
+			
+			email.setFrom(MY_EMAIL);
+			email.setSentDate(new Date(System.currentTimeMillis()));
+			
+			email.setCharset("UTF-8");
+			email.setSubject(subject);
+			
+			email.setMsg(content);
+			
+			email.addTo(emailReicieve);
+			email.send();
+			System.out.println("Send..");
+		} catch (EmailException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Fail...");
+			e.printStackTrace();
 		}
+	}
+	public static void main(String[] args) {
+		SendMailUtil sendMail = new SendMailUtil();
+		sendMail.sendRegisterSuccess("ttruong4568@gmail.com");
 	}
 }
