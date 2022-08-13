@@ -38,12 +38,16 @@ public class AdminSubCategoryController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		int page = 1;
+		if(request.getParameter("page")!=null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
 		int itemPerPage = 4;
 		int totalItem = SubCategoryService.getInstance().findAll(null).size();
 		int numberPage = new NumberPage(itemPerPage, totalItem).getNumberPage();
 		List<SubCategoryModel> listSubCategoryModel = SubCategoryService.getInstance().findAll(new PageRequest(page, itemPerPage, null, null));
 		request.setAttribute("SubCategories", listSubCategoryModel);
-		request.setAttribute("NumberPage", numberPage);
+		request.setAttribute("numberPage", 100);
+		request.setAttribute("currentPage", page);
 		request.getRequestDispatcher("views/admin/subcategory.jsp").forward(request, response);
 	}
 

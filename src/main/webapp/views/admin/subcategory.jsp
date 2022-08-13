@@ -52,7 +52,13 @@
 				class="fas fa-chevron-right"></i></a></li>
 	</ul>
 </div>
-
+<script src='<c:url value="/templates/admin/js/pagination.js"></c:url>'></script>
+ <script type="text/javascript">
+            pagination('.pagination__list', {
+                currentPage: ${currentPage},
+                numberPage: ${numberPage}
+            }, '/ProjectWeb/admin-subcategory')
+        </script>
 <script>
     const btnDelete = document.querySelector('.action__delete');
     const checkDeletes = document.querySelectorAll('.check-delete');
