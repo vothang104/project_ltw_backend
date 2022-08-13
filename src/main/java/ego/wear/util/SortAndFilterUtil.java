@@ -13,6 +13,7 @@ import ego.wear.sort.Sorter;
 
 public class SortAndFilterUtil {
 	private String type;
+	private String search;
 	private String sort;
 	private int currentPage;
 	private int itemPerPage;
@@ -21,9 +22,10 @@ public class SortAndFilterUtil {
 	private String filterPrice;
 	private Long categoryId;
 	
-	public SortAndFilterUtil(String type, String sort, int currentPage, int itemPerPage, String filterBrand, String filterMaterial, String filterPrice, Long categoryId) {
+	public SortAndFilterUtil(String type, String search, String sort, int currentPage, int itemPerPage, String filterBrand, String filterMaterial, String filterPrice, Long categoryId) {
 		super();
 		this.type = type;
+		this.search = search;
 		this.sort = sort;
 		this.currentPage = currentPage;
 		this.itemPerPage = itemPerPage;
@@ -39,6 +41,12 @@ public String getType() {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getSearch() {
+		return this.search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
 	}
 
 	public String getSort() {
@@ -119,6 +127,21 @@ public String getType() {
 					getItemPerPage(), new Sorter("desc", "id"), arrCondition));
 			break;
 		// category end
+		// search start
+		case "search":
+			List<Condition> listCondition = new ArrayList<>();
+			// tìm tên có chứa cụm từ
+			listCondition.add(new Condition("name", "'%" + getSearch() + "%'", "like"));
+			listCondition.add(new Condition("name", "'%" + getSearch() + "'", "like"));
+			listCondition.add(new Condition("name", "'" + getSearch() + "%'", "like"));
+			
+			// convert from list to array
+			arrCondition = new Condition[listCondition.size()];
+			listCondition.toArray(arrCondition);
+			listProduct = ProductService.getInstance().findByName(new PageRequest(getCurrentPage(), 
+					getItemPerPage(), null, arrCondition));
+			break;
+		// search end
 		default:
 			break;
 		}

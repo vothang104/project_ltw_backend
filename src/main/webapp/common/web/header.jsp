@@ -4,7 +4,7 @@
             <div class="grid wide">
                 <div class="row header-up">
                     <div class="col l-3 m-2 c-0 min-0">
-                        <a href="<c:url value=" /" />" class="header-up__logo hide-on-mobile">
+                        <a href="${pageContext.request.contextPath}/home" class="header-up__logo hide-on-mobile">
                         <img src="//bizweb.dktcdn.net/100/434/926/themes/832778/assets/logo.png?1631675028757"
                             alt="logo">
                         </a>

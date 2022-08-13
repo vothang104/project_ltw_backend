@@ -15,7 +15,6 @@ public class PageRequest implements IPageble {
 		this.condition = condition;
 	}
 
-
 	@Override
 	public Integer getOffset() {
 		if(this.page != null) {

@@ -26,16 +26,16 @@
 	</label>
 	<input hidden id='check-sidebar-list' type="checkbox">
 	<ul class="sidebar__list">
-		<li class="sidebar__list-item"><a href="${pageContext.request.contextPath}/views/admin/category.jsp"
+		<li class="sidebar__list-item"><a href="${pageContext.request.contextPath}/admin-category"
 			class="sidebar__list-item__link">Danh mục loại</a></li>
-		<li class="sidebar__list-item"><a href="${pageContext.request.contextPath}/views/admin/subcategory.jsp"
+		<li class="sidebar__list-item"><a href="${pageContext.request.contextPath}/admin-subcategory"
 			class="sidebar__list-item__link">Danh mục sản phẩm</a></li>
 	</ul>
 	<li class="sidebar__item"><i
 		class="sidebar__item-icon fas fa-tshirt"></i> <a
-		href="${pageContext.request.contextPath}/views/admin/products.jsp" class="sidebar__item-link">Sản phẩm</a></li>
+		href="${pageContext.request.contextPath}/admin-allproduct" class="sidebar__item-link">Sản phẩm</a></li>
 	<li class="sidebar__item"><i
 		class="sidebar__item-icon fas fa-receipt"></i> <a
-		href="${pageContext.request.contextPath}/views/admin/manageorder.jsp" class="sidebar__item-link">Quản lý đơn
+		href="${pageContext.request.contextPath}/admin-order" class="sidebar__item-link">Quản lý đơn
 			hàng</a></li>
 </ul>
