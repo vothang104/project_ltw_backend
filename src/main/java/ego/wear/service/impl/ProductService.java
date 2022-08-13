@@ -23,6 +23,10 @@ public class ProductService implements IProductService {
 		return ProductDAO.getInstance().findAll(pageble);
 	}
 	@Override
+	public List<ProductModel> findByName(IPageble pageble) {
+		return ProductDAO.getInstance().findByName(pageble);
+	}
+	@Override
 	public ProductModel findById(long id) {
 		return ProductDAO.getInstance().findById(id);
 	}

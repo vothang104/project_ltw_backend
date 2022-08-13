@@ -45,6 +45,34 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
 		return query(sql.toString(), new ProductMapper());
 	}
 	@Override
+	public List<ProductModel> findByName(IPageble pageble) {
+		StringBuilder sql = new StringBuilder("select * from product");
+		if(pageble != null) {
+			if(pageble.getCondition() != null) {
+				int length = pageble.getCondition().length;
+				for(int i = 0; i < length; i++) {
+					Condition con = pageble.getCondition()[i];
+					if(i > 0) {
+						sql.append(" OR " + con.getConditionName() + " " + con.getConditionType() + " " + con.getConditionValue());
+					}else {
+						sql.append(" WHERE " + con.getConditionName() + " " + con.getConditionType() + " " + con.getConditionValue());
+					}
+					
+				}
+//				sql.append(" WHERE " + pageble.getCondition().getConditionName() + " = " + pageble.getCondition().getConditionValue());
+			}
+			if(pageble.getSorter() != null) {
+				sql.append(" ORDER BY " + pageble.getSorter().getSortBy() + " " + pageble.getSorter().getSortName());
+			}
+			if(pageble.getOffset() != null && pageble.getLitmit() != null) {
+				sql.append(" LIMIT " + pageble.getOffset() + ", " + pageble.getLitmit());
+			}
+		}		
+		List<ProductModel> list = query(sql.toString(), new ProductMapper());
+		if(list != null) return list;
+		return null;
+	}
+	@Override
 	public ProductModel findById(long id) {
 		String sql = "SELECT * FROM product where id = ? AND quantity > 0";
 		List<ProductModel> list = query(sql, new ProductMapper(), id);
@@ -73,11 +101,14 @@ public class ProductDAO extends AbstractDAO<ProductModel> implements IProductDAO
 	}
 	
 	public static void main(String[] args) {
-		Condition[] arrCondition = new Condition[1];
-		arrCondition[0] = new Condition("quantity", 0, ">");
-		List<ProductModel> list = ProductDAO.getInstance().findAll(new PageRequest(1, 12, new Sorter("desc", "id"), arrCondition));
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(i + 1 + " " + list.get(i).getName());
+		Sorter sorter = new Sorter("desc", "id");
+		Condition[] conditions = new Condition[3];
+		conditions[0] = new Condition("name", "'%kaki%'", "like");
+		conditions[1] = new Condition("name", "'%kaki'", "like");
+		conditions[2] = new Condition("name", "'kaki%'", "like");
+		List<ProductModel> list = ProductDAO.getInstance().findByName(new PageRequest(1, 12, sorter, conditions));
+		for(ProductModel p: list) {
+			System.out.println(p.getName());
 		}
 	}
 	

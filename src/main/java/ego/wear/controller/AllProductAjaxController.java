@@ -45,6 +45,7 @@ public class AllProductAjaxController extends HttpServlet {
 		}
 		String type = request.getParameter("type");
 		int currentPage = Integer.parseInt(request.getParameter("page"));
+		String search = request.getParameter("search");
 		String sort = request.getParameter("sort");
 		String filterBrand = request.getParameter("brand");
 		String filterMaterial = request.getParameter("material");
@@ -61,7 +62,7 @@ public class AllProductAjaxController extends HttpServlet {
 		if(filterPrice == null) {
 			filterPrice = "default";
 		}
-		List<ProductModel> listProduct = new SortAndFilterUtil(type, sort, currentPage, itemPerPage, filterBrand, filterMaterial, filterPrice, categoryId).getListResult();
+		List<ProductModel> listProduct = new SortAndFilterUtil(type, search, sort, currentPage, itemPerPage, filterBrand, filterMaterial, filterPrice, categoryId).getListResult();
 		List<ImageModel> listImage = ImageService.getInstance().findAllOneProduct();
 		
 
