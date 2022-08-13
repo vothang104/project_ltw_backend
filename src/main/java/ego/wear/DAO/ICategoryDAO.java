@@ -11,4 +11,5 @@ public interface ICategoryDAO extends IGenericDAO<CategoryModel>{
 	CategoryModel findById(long id);
 	int update(CategoryModel categoryModel);
 	long insert(CategoryModel categoryModel);
+	int delete(long id);
 }

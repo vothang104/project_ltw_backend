@@ -42,6 +42,10 @@ public class CategoryService implements ICategoryService {
 		CategoryDAO.getInstance().update(categoryModel);
 		return findById(categoryModel.getId());
 	}
+	@Override
+	public int delete(long id) {
+		return CategoryDAO.getInstance().delete(id);
+	}
 	public static void main(String[] args) {
 		CategoryModel oldCate = CategoryService.getInstance().findById(7);
 		if(oldCate != null) {
