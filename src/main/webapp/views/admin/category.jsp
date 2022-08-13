@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 
+
 <link rel="stylesheet"
 	href="<c:url value='/templates/admin/css/category.css' />">
 <link rel="stylesheet"
@@ -28,50 +29,20 @@
 			sửa</div>
 	</div>
 	<div class="categories__body-wrap">
-		<div class="categories__body">
-			<div class="categories__body-column categories__body-choose">
-				<input class="check-delete" type="checkbox">
+		<c:forEach items="${categoryList}" var="cate">
+			<div class="categories__body">
+				<div class="categories__body-column categories__body-choose">
+					<input class="check-delete" type="checkbox">
+				</div>
+				<div class="categories__body-column categories__body-name">
+				${cate.name}
+				</div>
+				<div class="categories__body-column categories__body-update">
+					<a title="chỉnh sửa mục loại" href=""
+						class="categories__body-icon far fa-edit"></a>
+				</div>
 			</div>
-			<div class="categories__body-column categories__body-name">Áo
-				nam</div>
-			<div class="categories__body-column categories__body-update">
-				<a title="chỉnh sửa mục loại" href=""
-					class="categories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-		<div class="categories__body">
-			<div class="categories__body-column categories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="categories__body-column categories__body-name">Quần
-				nam</div>
-			<div class="categories__body-column categories__body-update">
-				<a title="chỉnh sửa mục loại" href=""
-					class="categories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-		<div class="categories__body">
-			<div class="categories__body-column categories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="categories__body-column categories__body-name">Áo
-				nữ</div>
-			<div class="categories__body-column categories__body-update">
-				<a title="chỉnh sửa mục loại" href=""
-					class="categories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-		<div class="categories__body">
-			<div class="categories__body-column categories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="categories__body-column categories__body-name">Quần
-				nữ</div>
-			<div class="categories__body-column categories__body-update">
-				<a title="chỉnh sửa mục loại" href=""
-					class="categories__body-icon far fa-edit"></a>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
 </div>
 <div class="pagination">

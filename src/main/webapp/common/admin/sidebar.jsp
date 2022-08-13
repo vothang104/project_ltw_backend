@@ -26,9 +26,9 @@
 	</label>
 	<input hidden id='check-sidebar-list' type="checkbox">
 	<ul class="sidebar__list">
-		<li class="sidebar__list-item"><a href="${pageContext.request.contextPath}/views/admin/category.jsp"
+		<li class="sidebar__list-item"><a href="${pageContext.request.contextPath}/admin-category"
 			class="sidebar__list-item__link">Danh mục loại</a></li>
-		<li class="sidebar__list-item"><a href="${pageContext.request.contextPath}/views/admin/subcategory.jsp"
+		<li class="sidebar__list-item"><a href="${pageContext.request.contextPath}/admin-subcategory"
 			class="sidebar__list-item__link">Danh mục sản phẩm</a></li>
 	</ul>
 	<li class="sidebar__item"><i

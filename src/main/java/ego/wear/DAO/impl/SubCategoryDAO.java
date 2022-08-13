@@ -4,8 +4,11 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import ego.wear.DAO.ISubCategoryDAO;
+import ego.wear.condition.Condition;
+import ego.wear.mapper.ProductMapper;
 import ego.wear.mapper.SubCategoryMapper;
 import ego.wear.model.SubCategoryModel;
+import ego.wear.pagination.IPageble;
 import ego.wear.util.GenerateCode;
 
 public class SubCategoryDAO extends AbstractDAO<SubCategoryModel> implements ISubCategoryDAO {
@@ -17,9 +20,30 @@ public class SubCategoryDAO extends AbstractDAO<SubCategoryModel> implements ISu
 		return subCategoryDao;
 	}
 	@Override
-	public List<SubCategoryModel> findAll() {
-		String sql = "SELECT * FROM sub_category";
-		return query(sql, new SubCategoryMapper());
+	public List<SubCategoryModel> findAll(IPageble pageble) {
+		StringBuilder sql = new StringBuilder("SELECT * FROM sub_category");
+		if(pageble != null) {
+			if(pageble.getCondition() != null) {
+				int length = pageble.getCondition().length;
+				for(int i = 0; i < length; i++) {
+					Condition con = pageble.getCondition()[i];
+					if(i > 0) {
+						sql.append(" AND " + con.getConditionName() + " " + con.getConditionType() + " " + con.getConditionValue());
+					}else {
+						sql.append(" WHERE " + con.getConditionName() + " " + con.getConditionType() + " " + con.getConditionValue());
+					}
+					
+				}
+//				sql.append(" WHERE " + pageble.getCondition().getConditionName() + " = " + pageble.getCondition().getConditionValue());
+			}
+			if(pageble.getSorter() != null) {
+				sql.append(" ORDER BY " + pageble.getSorter().getSortBy() + " " + pageble.getSorter().getSortName());
+			}
+			if(pageble.getOffset() != null && pageble.getLitmit() != null) {
+				sql.append(" LIMIT " + pageble.getOffset() + ", " + pageble.getLitmit());
+			}
+		}		
+		return query(sql.toString(), new SubCategoryMapper());
 	}
 	@Override
 	public SubCategoryModel findById(long id) {
@@ -40,14 +64,7 @@ public class SubCategoryDAO extends AbstractDAO<SubCategoryModel> implements ISu
 		update(sql, subCategoryModel.getName(), subCategoryModel.getCode(), subCategoryModel.getCategoryId(), subCategoryModel.getModifiedBy(), subCategoryModel.getModifiedDate(), subCategoryModel.getId());
 	}
 	public static void main(String[] args) {
-		SubCategoryModel oldSub = SubCategoryDAO.getInstance().findById(1);
-		if(oldSub != null) {
-			oldSub.setName("Áo sơ mi nam");
-			oldSub.setCode(GenerateCode.generateCode(oldSub.getName()));
-			oldSub.setModifiedDate(new Timestamp(System.currentTimeMillis()));
-			
-			SubCategoryDAO.getInstance().update(oldSub);
-		}
+		
 	}
 
 }

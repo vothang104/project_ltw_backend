@@ -27,50 +27,18 @@
 			sửa</div>
 	</div>
 	<div class="subcategories__body-wrap">
-		<div class="subcategories__body">
-			<div class="subcategories__body-column subcategories__body-choose">
-				<input class="check-delete" type="checkbox">
+		<c:forEach items = "${SubCategories}" var = "subCate">
+			<div class="subcategories__body">
+				<div class="subcategories__body-column subcategories__body-choose">
+					<input class="check-delete" type="checkbox">
+				</div>
+				<div class="subcategories__body-column subcategories__body-name">${subCate.name}</div>
+				<div class="subcategories__body-column subcategories__body-update">
+					<a title="chỉnh sửa danh mục sản phẩm" href=""
+						class="subcategories__body-icon far fa-edit"></a>
+				</div>
 			</div>
-			<div class="subcategories__body-column subcategories__body-name">Áo
-				thun nam</div>
-			<div class="subcategories__body-column subcategories__body-update">
-				<a title="chỉnh sửa danh mục sản phẩm" href=""
-					class="subcategories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-		<div class="subcategories__body">
-			<div class="subcategories__body-column subcategories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="subcategories__body-column subcategories__body-name">Áo
-				thun nữ</div>
-			<div class="subcategories__body-column subcategories__body-update">
-				<a title="chỉnh sửa danh mục sản phẩm" href=""
-					class="subcategories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-		<div class="subcategories__body">
-			<div class="subcategories__body-column subcategories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="subcategories__body-column subcategories__body-name">Quần
-				jogger nữ</div>
-			<div class="subcategories__body-column subcategories__body-update">
-				<a title="chỉnh sửa danh mục sản phẩm" href=""
-					class="subcategories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-		<div class="subcategories__body">
-			<div class="subcategories__body-column subcategories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="subcategories__body-column subcategories__body-name">Quần
-				short nam</div>
-			<div class="subcategories__body-column subcategories__body-update">
-				<a title="chỉnh sửa danh mục sản phẩm" href=""
-					class="subcategories__body-icon far fa-edit"></a>
-			</div>
-		</div>
+		</c:forEach>
 	</div>
 </div>
 <div class="pagination">
