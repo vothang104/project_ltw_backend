@@ -9,11 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import ego.wear.model.CategoryModel;
 import ego.wear.service.impl.CategoryService;
+import ego.wear.util.GenerateCode;
 
 /**
  * Servlet implementation class AdminInsertCategoryController
  */
-@WebServlet(urlPatterns = {"/admin-editcategory", "/admin-insertcategory"})
+@WebServlet(urlPatterns = {"/admin-editcategory", "/admin-insertcategory", "/admin-deletecategory"})
 public class AdminInsertCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -52,12 +53,25 @@ public class AdminInsertCategoryController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		String name = request.getParameter("name");
-		long id = Long.parseLong(request.getParameter("id"));
+		String type = request.getParameter("type");
+		CategoryModel cateModel = null;
+		if(type.equals("add")) {
+		CategoryModel cate = new CategoryModel(0, "", null, name, null, name, GenerateCode.generateCode(name));
+		cateModel = CategoryService.getInstance().insert(cate);
+		}else if(type.equals("update")) {
+			long id = Long.parseLong(request.getParameter("id"));
+			CategoryModel cate = CategoryService.getInstance().findById(id);
+			cate.setName(name);
+			cateModel = CategoryService.getInstance().update(cate);
+		}else if(type.equals("delete")) {
+			String ids = request.getParameter("deleteId");
+			
+		}
 		
-		CategoryModel categoryModel = CategoryService.getInstance().findById(id);
-		categoryModel.setName(name);
-		
+		if(cateModel != null) {
+			response.sendRedirect(request.getServletContext().getContextPath() + "/admin-category");
+		}
 		
 	}
-
+	
 }
