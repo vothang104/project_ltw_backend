@@ -1,10 +1,9 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
 
 <link rel="stylesheet"
-	href="<c:url value='/templates/admin/css/subcategory.css' /> ">
+	href="<c:url value='/templates/admin/css/category.css' /> ">
 <link rel="stylesheet"
 	href="<c:url value='/templates/admin/css/pagination.css' /> ">
 
@@ -23,7 +22,7 @@
             </div>
             <input hidden value="delete" name="type" />
             <div class="categories__body-wrap">
-                <c:forEach items="${listSubCategory}" var="subCate" varStatus="loop">
+                <c:forEach items="${SubCategories}" var="subCate" varStatus="loop">
                     <div class="categories__body">
                         <div class="categories__body-column categories__body-choose">
                             ${loop.count}
