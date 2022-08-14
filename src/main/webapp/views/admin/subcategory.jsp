@@ -29,7 +29,7 @@
                         </div>
                         <div class="categories__body-column categories__body-name">${subCate.name}</div>
                         <div style="column-gap: 5px" class="categories__body-column categories__body-update">
-                            <a title="chỉnh sửa mục loại" href="${pageContext.request.contextPath}/admin-editcategory?id=${subCate.id}" class="categories__body-icon far fa-edit"></a>
+                            <a title="chỉnh sửa mục loại" href="${pageContext.request.contextPath}/admin-editsubcategory?id=${subCate.id}" class="categories__body-icon far fa-edit"></a>
                             <a data-name="${subCate.name}" onclick="window.confirm('Bạn có chắc muốn xóa ${subCate.name}')" title="Xóa mục sản phẩm" href="${pageContext.request.contextPath}/admin-deletesubcategory?type=delete&id=${subCate.id}" class="btn-delete categories__body-icon far fa-trash-alt">
                             </a>
                         </div>

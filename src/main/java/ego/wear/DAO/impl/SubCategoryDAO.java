@@ -68,7 +68,8 @@ public class SubCategoryDAO extends AbstractDAO<SubCategoryModel> implements ISu
 		return result;
 	}
 	public static void main(String[] args) {
-		
+		int result = SubCategoryDAO.getInstance().delete(10);
+		System.out.println(result);
 	}
 	@Override
 	public int delete(long id) {
