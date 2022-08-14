@@ -33,6 +33,14 @@ public class AdminInsertCategoryController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
+		if(request.getParameter("type") != null && request.getParameter("type").equals("delete")) {
+			long id = Long.parseLong(request.getParameter("id"));
+			int result = CategoryService.getInstance().delete(id);
+			if(result > 0) {
+				response.sendRedirect(request.getServletContext().getContextPath() + "/admin-category");
+			}
+			return;
+		}
 		long id = 0;
 		if(request.getParameter("id") != null) {
 			id = Integer.parseInt(request.getParameter("id"));
