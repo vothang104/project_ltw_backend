@@ -22,8 +22,7 @@
 		<p class="categories__header-column categories__header-choose">STT</p>
 		<div class="categories__header-column categories__header-name">Tên
 			mục loại</div>
-		<div class="categories__header-column categories__header-update">Chỉnh
-			sửa</div>
+		<div class="categories__header-column categories__header-update">Hành động</div>
 	</div>
 	<input hidden value="delete" name="type" />
 	<div class="categories__body-wrap">
@@ -36,7 +35,8 @@
 			<div style="column-gap: 5px" class="categories__body-column categories__body-update">
 				<a title="chỉnh sửa mục loại" href="${pageContext.request.contextPath}/admin-editcategory?id=${cate.id}"
 					class="categories__body-icon far fa-edit"></a>
-				<a title="Xóa mục loại" href="${pageContext.request.contextPath}/admin-deletecategory?type=delete&id=${cate.id}" class="categories__body-icon far fa-trash-alt">
+				<a data-name="${cate.name}" onclick="window.confirm('Bạn có chắc muốn xóa ${cate.name}')" title="Xóa mục loại" href="${pageContext.request.contextPath}/admin-deletecategory?type=delete&id=${cate.id}"
+				class="btn-delete categories__body-icon far fa-trash-alt">
 				</a>
 			</div>
 		</div>
@@ -62,19 +62,12 @@
 	}, '/ProjectWeb/admin-category')
 </script>
 <script>
-    const btnDelete = document.querySelector('.action__delete');
-    const checkDeletes = document.querySelectorAll('.check-delete');
-
-    checkDeletes.forEach(check => {
-        check.onclick = e => {
-            const checkEl = [...checkDeletes].find(item => {
-                return item.matches('.check-delete:checked');
-            })
-            if(checkEl) {
-                btnDelete.style = `opacity: 1; pointer-events: all`;
-            }else {
-                btnDelete.style = `opacity: 0.5; pointer-events: none`;
-            }
-        }
-    })
+    const btnDeletes = document.querySelectorAll('.btn-delete');
+	[...btnDeletes].forEach(item => item.onclick = (e) => {
+		const check = confirm('Bạn có chắc muốn xóa ' + e.target.dataset.name)
+		if(!check) {
+			e.preventDefault()
+			return
+		}
+	})
 </script>
