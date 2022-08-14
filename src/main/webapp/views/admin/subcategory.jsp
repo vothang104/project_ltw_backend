@@ -1,6 +1,12 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
+
+<link rel="stylesheet"
+	href="<c:url value='/templates/admin/css/subcategory.css' /> ">
+<link rel="stylesheet"
+	href="<c:url value='/templates/admin/css/pagination.css' /> ">
 
  <div class="direct">
             <span><i class="direct-icon fas fa-home"></i>Trang chủ</span> &#160; &#62; &#160; Danh mục sản phẩm

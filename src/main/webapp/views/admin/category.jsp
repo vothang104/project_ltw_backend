@@ -2,7 +2,12 @@
 	pageEncoding="UTF-8"%>
     <%@ include file="/common/taglibs.jsp"%>
 
-        =======
+        <link rel="stylesheet" href="<c:url value='/templates/admin/css/category.css' />">
+        <link rel="stylesheet" href="<c:url value='/templates/admin/css/pagination.css' />">
+        <title>
+            <dec:title>Admin - Category</dec:title>
+        </title>
+
         <div class="direct">
             <span><i class="direct-icon fas fa-home"></i>Trang chủ</span> &#160; &#62; &#160; Danh mục loại
         </div>
@@ -36,26 +41,19 @@
         <div class="pagination">
             <ul class="pagination__list">
                 <%-- <li class="pagination__list-item"><a href=""
-
 			class="pagination__list-item__link active">1</a></li>
 		<li class="pagination__list-item"><a href=""
 			class="pagination__list-item__link">2</a></li>
 		<li class="pagination__list-item"><a href=""
 			class="pagination__list-item__link"><i	
 				class="fas fa-chevron-right"></i></a></li> --%>
-
-                    =======
             </ul>
         </div>
         <script src='<c:url value="/templates/admin/js/pagination.js"></c:url>'></script>
         <script type="text/javascript">
             pagination('.pagination__list', {
-                currentPage: $ {
-                    currentPage
-                },
-                numberPage: $ {
-                    numberPage
-                }
+                currentPage: ${currentPage},
+                numberPage: ${numberPage}
             }, '/ProjectWeb/admin-category')
         </script>
         <script>
@@ -68,4 +66,3 @@
                 }
             })
         </script>
-        >>>>>>> main
