@@ -17,19 +17,41 @@
 					<div class="detailproduct-left__slide-wrap">
 						<div class="detailproduct-left__slide-choose">
 							<c:forEach items="${listImage}" var="image" varStatus="loopCount">
-							<img data-distance='${loopCount.count - 1}'
-								class="detailproduct-left__slide-choose__img <c:if test="${loopCount.count eq 1}">active</c:if>"
-								src="${image.link}"
-								alt="">
+							<c:choose>
+								<c:when test="${image.isLinkOnline eq true}">
+									<img data-distance='${loopCount.count - 1}'
+									class="detailproduct-left__slide-choose__img <c:if test="${loopCount.count eq 1}">active</c:if>"
+									src="${image.link}"
+									alt="">
+								</c:when>
+								<c:otherwise>
+									<img data-distance='${loopCount.count - 1}'
+									class="detailproduct-left__slide-choose__img <c:if test="${loopCount.count eq 1}">active</c:if>"
+									src="${pageContext.request.contextPath}/upload/${image.link}"
+									alt="">
+								</c:otherwise>
+							</c:choose>
+							
 							</c:forEach>
 						</div>
 						<div class="detailproduct-left__slide">
 							<c:forEach items="${listImage}" var="image">
-							<div class="detailproduct-left__slide-img">
-								<img class="detailproduct-left__slide-img"
-									src="${image.link}"
-									alt="">
-							</div>
+							<c:choose>
+								<c:when test="${image.isLinkOnline eq true}">
+									<div class="detailproduct-left__slide-img">
+									<img class="detailproduct-left__slide-img"
+										src="${image.link}"
+										alt="">
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="detailproduct-left__slide-img">
+										<img class="detailproduct-left__slide-img"
+											src="${pageContext.request.contextPath}/upload/${image.link}"
+											alt="">
+									</div>
+								</c:otherwise>
+							</c:choose>
 							</c:forEach>			
 						</div>
 					</div>

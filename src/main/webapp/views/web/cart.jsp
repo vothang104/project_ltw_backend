@@ -37,7 +37,7 @@
 					</c:if>
 					</c:forEach>
 					<div class="cart-product__table-info-product__info">
-						<span>${item.value.name}</span> <span>kích thước:${item.value.size}</span>
+						<a href="${pageContext.request.contextPath}/productdetail?id=${item.value.id}">${item.value.name}</a> <span>kích thước:${item.value.size}</span>
 						<span onclick="handleDelete.bind(this)()" class="btn-remove-enjoyproduct" data-id="${item.value.id}">xóa</span>
 					</div>
 				</div>

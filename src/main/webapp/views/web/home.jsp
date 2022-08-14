@@ -115,14 +115,6 @@
 						<c:when test="${image.isLinkOnline eq true}">
 						<a href="${pageContext.request.contextPath}/productdetail?id=${p.id}" class="product__img"
 							style='background-image: url(${image.link})'>
-						</c:when>
-						<c:otherwise>
-						<a href="${pageContext.request.contextPath}/productdetail?id=${p.id}" class="product__img"
-							style='background-image: url(upload/${image.link})'>
-						</c:otherwise>
-						</c:choose>						
-						</c:if>
-						</c:forEach>
 							<form data-id='${p.id}' action="pay" method="post" class="hide-on-taplet product__size">
 								<div class="product__size-wrap">
 									<input checked class="product__size-option" hidden type="radio" value='S' name="size${p.id}" id="s${p.id}">
@@ -134,8 +126,29 @@
 									<input type='text' hidden value='${p.id}' name='id' />
 									<input hidden name='id' type='text' value='${p.id}' />
 								</div>
-							</form>
-						</a>					
+							</form>	
+							</a>
+						</c:when>
+						<c:otherwise>
+						<a href="${pageContext.request.contextPath}/productdetail?id=${p.id}" class="product__img"
+							style='background-image: url("${pageContext.request.contextPath}/upload/${image.link}")'>
+							<form data-id='${p.id}' action="pay" method="post" class="hide-on-taplet product__size">
+								<div class="product__size-wrap">
+									<input checked class="product__size-option" hidden type="radio" value='S' name="size${p.id}" id="s${p.id}">
+									<label for="s${p.id}" class="product__size-label">S</label>
+									<input class="product__size-option" hidden type="radio" value='M' name="size${p.id}" id="m${p.id}">
+									<label for="m${p.id}" class="product__size-label">M</label>
+									<input class="product__size-option" hidden type="radio" value='L' name="size${p.id}" id="l${p.id}">
+									<label for="l${p.id}" class="product__size-label">L</label>
+									<input type='text' hidden value='${p.id}' name='id' />
+									<input hidden name='id' type='text' value='${p.id}' />
+								</div>
+							</form>	
+							</a>
+						</c:otherwise>
+						</c:choose>						
+						</c:if>
+						</c:forEach>			
 						<div class="product__info">
 							<p class="product__brand">${p.branch}</p>
 							<p data-id='${p.id}' class="product__name">${p.name}</p>

@@ -55,7 +55,7 @@ public class SignupController extends HttpServlet {
 		String email = request.getParameter("email");
 		String phoneNumber = request.getParameter("phonenumber");
 		String password = request.getParameter("password");
-		int roleId = Integer.parseInt(request.getParameter("role"));
+		long roleId = Long.parseLong(request.getParameter("role"));
 		
 		if(UserService.getInstance().isUniqueUsername(username)) {
 			UserModel user = UserService.getInstance().insert(new UserModel(0, null, new Timestamp(System.currentTimeMillis()),

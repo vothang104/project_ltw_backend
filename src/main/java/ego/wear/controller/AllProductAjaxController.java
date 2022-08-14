@@ -94,7 +94,7 @@ public class AllProductAjaxController extends HttpServlet {
 								"style='background-image: url("+img.getLink()+")'>");
 					}else {
 						writer.println("<a href='/ProjectWeb/productdetail?id="+p.getId()+"' class='product__img'" + 
-								"style='background-image: url(upload/"+img.getLink()+")'>");
+								"style='background-image: url(\"" + request.getServletContext().getContextPath() + "/upload/"+img.getLink()+"\")'>");
 					}
 					
 				}
