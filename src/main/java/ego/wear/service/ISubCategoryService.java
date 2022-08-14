@@ -10,4 +10,5 @@ public interface ISubCategoryService {
 	SubCategoryModel findById(long id);
 	SubCategoryModel insert(SubCategoryModel subCategoryModel);
 	SubCategoryModel update(SubCategoryModel subCategoryModel);
+	int delete(long id);
 }

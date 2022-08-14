@@ -36,7 +36,7 @@
         <div class="pagination">
             <ul class="pagination__list">
                 <%-- <li class="pagination__list-item"><a href=""
->>>>>>> main
+
 			class="pagination__list-item__link active">1</a></li>
 		<li class="pagination__list-item"><a href=""
 			class="pagination__list-item__link">2</a></li>

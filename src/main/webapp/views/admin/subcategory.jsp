@@ -8,33 +8,30 @@
         <div class="action">
             <a title="Thêm mục sản phẩm" href="${pageContext.request.contextPath}/admin-insertsubcategory" class="action__add"> <i class="action-icon fas fa-plus"></i>
             </a>
-            <a title="Xóa mục sản phẩm" href="" class="action__delete"> <i class="action-icon far fa-trash-alt"></i>
-            </a>
         </div>
-        <form action="${pageContext.request.contextPath}/admin-deletesubcategory" method="post" class="categories__body-wrap">
-            <div class="categories">
-                <div class="categories__header">
-                    <p class="categories__header-column categories__header-choose">Chọn</p>
-                    <div class="categories__header-column categories__header-name">Tên mục loại</div>
-                    <div class="categories__header-column categories__header-update">Chỉnh sửa
-                    </div>
-                </div>
-                <input hidden value="delete" name="type" />
-                <div class="categories__body-wrap">
-                    <c:forEach items="${listSubCategory}" var="subCate">
-                        <div class="categories__body">
-                            <div class="categories__body-column categories__body-choose">
-                                <input value="${subCate.id}" name="deleteId" class="check-delete" type="checkbox">
-                            </div>
-                            <div class="categories__body-column categories__body-name">${subCate.name}</div>
-                            <div class="categories__body-column categories__body-update">
-                                <a title="chỉnh sửa mục loại" href="${pageContext.request.contextPath}/admin-editsubcategory?id=${subCate.id}" class="categories__body-icon far fa-edit"></a>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
+       <div class="categories">
+            <div class="categories__header">
+                <p class="categories__header-column categories__header-choose">STT</p>
+                <div class="categories__header-column categories__header-name">Tên mục sản phẩm</div>
+                <div class="categories__header-column categories__header-update">Hành động</div>
             </div>
-        </form>
+            <input hidden value="delete" name="type" />
+            <div class="categories__body-wrap">
+                <c:forEach items="${listSubCategory}" var="subCate" varStatus="loop">
+                    <div class="categories__body">
+                        <div class="categories__body-column categories__body-choose">
+                            ${loop.count}
+                        </div>
+                        <div class="categories__body-column categories__body-name">${subCate.name}</div>
+                        <div style="column-gap: 5px" class="categories__body-column categories__body-update">
+                            <a title="chỉnh sửa mục loại" href="${pageContext.request.contextPath}/admin-editcategory?id=${subCate.id}" class="categories__body-icon far fa-edit"></a>
+                            <a data-name="${subCate.name}" onclick="window.confirm('Bạn có chắc muốn xóa ${subCate.name}')" title="Xóa mục sản phẩm" href="${pageContext.request.contextPath}/admin-deletesubcategory?type=delete&id=${subCate.id}" class="btn-delete categories__body-icon far fa-trash-alt">
+                            </a>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
 
 
 <div class="pagination">

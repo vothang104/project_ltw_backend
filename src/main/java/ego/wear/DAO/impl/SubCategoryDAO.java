@@ -1,5 +1,8 @@
 package ego.wear.DAO.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -59,12 +62,29 @@ public class SubCategoryDAO extends AbstractDAO<SubCategoryModel> implements ISu
 	}
 	
 	@Override
-	public void update(SubCategoryModel subCategoryModel) {
+	public int update(SubCategoryModel subCategoryModel) {
 		String sql = "UPDATE sub_category SET name = ?,  code = ?, category_id = ?, modified_by = ?, modified_date = ? WHERE id = ?";
-		update(sql, subCategoryModel.getName(), subCategoryModel.getCode(), subCategoryModel.getCategoryId(), subCategoryModel.getModifiedBy(), subCategoryModel.getModifiedDate(), subCategoryModel.getId());
+		int result = update(sql, subCategoryModel.getName(), subCategoryModel.getCode(), subCategoryModel.getCategoryId(), subCategoryModel.getModifiedBy(), subCategoryModel.getModifiedDate(), subCategoryModel.getId());
+		return result;
 	}
 	public static void main(String[] args) {
 		
+	}
+	@Override
+	public int delete(long id) {
+		String sql = "Delete from sub_category where id = ?";
+		Connection conn = getConnection();
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setLong(1, id);
+			int result = ps.executeUpdate();
+			return result;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 
 }

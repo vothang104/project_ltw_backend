@@ -3,7 +3,9 @@ package ego.wear.service.impl;
 import java.sql.Timestamp;
 import java.util.List;
 
+import ego.wear.DAO.impl.CategoryDAO;
 import ego.wear.DAO.impl.SubCategoryDAO;
+import ego.wear.model.CategoryModel;
 import ego.wear.model.SubCategoryModel;
 import ego.wear.pagination.IPageble;
 import ego.wear.pagination.PageRequest;
@@ -31,13 +33,18 @@ public class SubCategoryService implements ISubCategoryService {
 	@Override
 	public SubCategoryModel insert(SubCategoryModel subCategoryModel) {
 		long id = SubCategoryDAO.getInstance().insert(subCategoryModel);
-		return findById(id);
+		SubCategoryModel subCate = findById(id);
+		return subCate;
 	}
 
 	@Override
 	public SubCategoryModel update(SubCategoryModel subCategoryModel) {
 		SubCategoryDAO.getInstance().update(subCategoryModel);
 		return findById(subCategoryModel.getId());
+	}
+	@Override
+	public int delete(long id) {
+		return SubCategoryDAO.getInstance().delete(id);
 	}
 	public static void main(String[] args) {
 //		SubCategoryModel oldCate = SubCategoryService.getInstance().findById(1);
