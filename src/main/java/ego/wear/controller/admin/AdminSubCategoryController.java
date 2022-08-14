@@ -46,7 +46,7 @@ public class AdminSubCategoryController extends HttpServlet {
 		int numberPage = new NumberPage(itemPerPage, totalItem).getNumberPage();
 		List<SubCategoryModel> listSubCategoryModel = SubCategoryService.getInstance().findAll(new PageRequest(page, itemPerPage, null, null));
 		request.setAttribute("SubCategories", listSubCategoryModel);
-		request.setAttribute("numberPage", 100);
+		request.setAttribute("numberPage", numberPage);
 		request.setAttribute("currentPage", page);
 		request.getRequestDispatcher("views/admin/subcategory.jsp").forward(request, response);
 	}
