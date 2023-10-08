@@ -3,76 +3,42 @@
 <%@ include file="/common/taglibs.jsp"%>
 
 <link rel="stylesheet"
-	href="<c:url value='/templates/admin/css/subcategory.css' /> ">
+	href="<c:url value='/templates/admin/css/category.css' /> ">
 <link rel="stylesheet"
 	href="<c:url value='/templates/admin/css/pagination.css' /> ">
 
-<div class="direct">
-	<span><i class="direct-icon fas fa-home"></i>Trang chủ</span> &#160;
-	&#62; &#160; Danh mục sản phẩm
-</div>
-<div class="action">
-	<a title="Thêm danh mục sản phẩm" href="./insertsubcategory.html"
-		class="action__add"> <i class="action-icon fas fa-plus"></i>
-	</a> <a title="Xóa danh mục sản phẩm" href="" class="action__delete"> <i
-		class="action-icon far fa-trash-alt"></i>
-	</a>
-</div>
-<div class="subcategories">
-	<div class="subcategories__header">
-		<p class="subcategories__header-column subcategories__header-choose">Chọn</p>
-		<div class="subcategories__header-column subcategories__header-name">Tên
-			danh mục sản phẩm</div>
-		<div class="subcategories__header-column subcategories__header-update">Chỉnh
-			sửa</div>
-	</div>
-	<div class="subcategories__body-wrap">
-		<div class="subcategories__body">
-			<div class="subcategories__body-column subcategories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="subcategories__body-column subcategories__body-name">Áo
-				thun nam</div>
-			<div class="subcategories__body-column subcategories__body-update">
-				<a title="chỉnh sửa danh mục sản phẩm" href=""
-					class="subcategories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-		<div class="subcategories__body">
-			<div class="subcategories__body-column subcategories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="subcategories__body-column subcategories__body-name">Áo
-				thun nữ</div>
-			<div class="subcategories__body-column subcategories__body-update">
-				<a title="chỉnh sửa danh mục sản phẩm" href=""
-					class="subcategories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-		<div class="subcategories__body">
-			<div class="subcategories__body-column subcategories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="subcategories__body-column subcategories__body-name">Quần
-				jogger nữ</div>
-			<div class="subcategories__body-column subcategories__body-update">
-				<a title="chỉnh sửa danh mục sản phẩm" href=""
-					class="subcategories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-		<div class="subcategories__body">
-			<div class="subcategories__body-column subcategories__body-choose">
-				<input class="check-delete" type="checkbox">
-			</div>
-			<div class="subcategories__body-column subcategories__body-name">Quần
-				short nam</div>
-			<div class="subcategories__body-column subcategories__body-update">
-				<a title="chỉnh sửa danh mục sản phẩm" href=""
-					class="subcategories__body-icon far fa-edit"></a>
-			</div>
-		</div>
-	</div>
-</div>
+ <div class="direct">
+            <span><i class="direct-icon fas fa-home"></i>Trang chủ</span> &#160; &#62; &#160; Danh mục sản phẩm
+        </div>
+        <div class="action">
+            <a title="Thêm mục sản phẩm" href="${pageContext.request.contextPath}/admin-insertsubcategory" class="action__add"> <i class="action-icon fas fa-plus"></i>
+            </a>
+        </div>
+       <div class="categories">
+            <div class="categories__header">
+                <p class="categories__header-column categories__header-choose">STT</p>
+                <div class="categories__header-column categories__header-name">Tên mục sản phẩm</div>
+                <div class="categories__header-column categories__header-update">Hành động</div>
+            </div>
+            <input hidden value="delete" name="type" />
+            <div class="categories__body-wrap">
+                <c:forEach items="${SubCategories}" var="subCate" varStatus="loop">
+                    <div class="categories__body">
+                        <div class="categories__body-column categories__body-choose">
+                            ${loop.count}
+                        </div>
+                        <div class="categories__body-column categories__body-name">${subCate.name}</div>
+                        <div style="column-gap: 5px" class="categories__body-column categories__body-update">
+                            <a title="chỉnh sửa mục loại" href="${pageContext.request.contextPath}/admin-editsubcategory?id=${subCate.id}" class="categories__body-icon far fa-edit"></a>
+                            <a data-name="${subCate.name}" onclick="window.confirm('Bạn có chắc muốn xóa ${subCate.name}')" title="Xóa mục sản phẩm" href="${pageContext.request.contextPath}/admin-deletesubcategory?type=delete&id=${subCate.id}" class="btn-delete categories__body-icon far fa-trash-alt">
+                            </a>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+
+
 <div class="pagination">
 	<ul class="pagination__list">
 		<li class="pagination__list-item"><a href=""
@@ -84,7 +50,13 @@
 				class="fas fa-chevron-right"></i></a></li>
 	</ul>
 </div>
-
+<script src='<c:url value="/templates/admin/js/pagination.js"></c:url>'></script>
+ <script type="text/javascript">
+            pagination('.pagination__list', {
+                currentPage: ${currentPage},
+                numberPage: ${numberPage}
+            }, '/ProjectWeb/admin-subcategory')
+        </script>
 <script>
     const btnDelete = document.querySelector('.action__delete');
     const checkDeletes = document.querySelectorAll('.check-delete');

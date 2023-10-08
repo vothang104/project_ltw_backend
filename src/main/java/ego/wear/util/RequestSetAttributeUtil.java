@@ -13,7 +13,7 @@ import ego.wear.service.impl.SubCategoryService;
 public class RequestSetAttributeUtil {
 	public static void setCategory(HttpServletRequest request) {
 		List<CategoryModel> listCategory = CategoryService.getInstance().findAll();
-		List<SubCategoryModel> listSubCategory = SubCategoryService.getInstance().findAll();
+		List<SubCategoryModel> listSubCategory = SubCategoryService.getInstance().findAll(null);
 		List<String> listBrand = ProductService.getInstance().findDistinctBrand();
 		List<String> listMaterial = ProductService.getInstance().findDistinctMaterial();
 		request.setAttribute("listCategory", listCategory);
